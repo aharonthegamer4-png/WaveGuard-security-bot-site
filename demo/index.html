@@ -12,7 +12,8 @@
 *{box-sizing:border-box;margin:0}
 body{background:var(--bg);color:var(--text);font-family:system-ui,"Segoe UI",Arial,sans-serif;line-height:1.5;min-height:100vh}
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.brand{font-weight:800;font-size:17px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px}
+.brand img{width:22px;height:22px;border-radius:6px;display:block}
 .badge{padding:6px 12px;border-radius:99px;font-size:13px;font-weight:700;background:#ffc85722;color:var(--warn);border:1px solid #ffc85755}
 .wrap{display:grid;grid-template-columns:220px 1fr;gap:16px;max-width:1150px;margin:0 auto;padding:16px}
 @media(max-width:800px){.wrap{grid-template-columns:1fr}}
@@ -38,11 +39,33 @@ button.act:hover{border-color:var(--ac)}
 #lock.show{display:grid}
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#000d;color:#fff;padding:9px 16px;border-radius:12px;font-size:14px;opacity:0;transition:.25s;pointer-events:none}
 #toast.show{opacity:1}
+.cgate{position:fixed;inset:0;z-index:20;display:none;place-items:center;padding:20px;background:#070912f2}
+.cgate.show{display:grid}
+.cgbox{max-width:440px;width:100%;text-align:center;padding:28px}
+.cgbox img{border-radius:14px;display:block;margin:0 auto 14px}
+.cgbox h2{font-size:19px;margin-bottom:10px}
+.cgbox p{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:16px}
+.cglinks{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.cglinks a{color:var(--ac);text-decoration:underline;font-weight:600;font-size:14px}
+.btn.main{width:100%;border:0;border-radius:12px;padding:11px 16px;font:inherit;font-weight:700;font-size:15px;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--ac),var(--ac2))}
+.btn.main:hover{filter:brightness(1.1)}
 </style>
 </head>
 <body>
+<div id="consent" class="cgate" role="dialog" aria-modal="true" aria-labelledby="cgTitle">
+  <div class="cgbox card">
+    <img src="/img/security-bot-logo.gif" alt="" width="56" height="56">
+    <h2 id="cgTitle">לפני שמתחילים עם הדמו</h2>
+    <p>זהו דמו מקומי של פאנל Shield Guard Security Bot — כל מה שעושים כאן נשאר בדפדפן שלך בלבד ולא משפיע על שום שרת דיסקורד אמיתי. כדי להמשיך צריך לאשר את תנאי השימוש ומדיניות הפרטיות.</p>
+    <div class="cglinks">
+      <a href="/terms" target="_blank" rel="noopener">📜 תנאי שימוש</a>
+      <a href="/privacy" target="_blank" rel="noopener">🔒 מדיניות פרטיות</a>
+    </div>
+    <button class="btn main" id="cgAccept" type="button">אני מאשר/ת וממשיך/ה</button>
+  </div>
+</div>
 <div class="top">
-  <div class="brand">🛡️ Shield Guard · דמו</div>
+  <div class="brand"><img src="/img/security-bot-logo.gif" alt=""> Shield Guard · דמו</div>
   <div class="badge">מצב דמו · הכול מקומי ולא משפיע על בוט אמיתי · נשאר <span id="timer">--:--</span></div>
 </div>
 <div class="wrap">
@@ -59,6 +82,7 @@ button.act:hover{border-color:var(--ac)}
   <p class="muted">הדמו זמין לשעה אחת בלבד. לשאלות ולהתקנה אמיתית פנו אלינו.</p>
 </div></div>
 <div id="toast"></div>
+<script src="consent.js"></script>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
