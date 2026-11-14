@@ -10,7 +10,7 @@
   function apply() {
     d.lang = lang; d.dir = lang === "he" ? "rtl" : "ltr"; d.dataset.theme = theme;
     const t = document.querySelector("[data-l=" + lang + "] h1");
-    if (t) document.title = t.textContent + " - Shield Guard Security Bot";
+    if (t) document.title = t.textContent + " - FiveShield Bot";
     document.querySelectorAll("[data-setlang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.setlang === lang)));
     document.querySelectorAll("[data-support]").forEach(a => { a.href = SUPPORT; a.target = "_blank"; a.rel = "noopener"; });
   }
