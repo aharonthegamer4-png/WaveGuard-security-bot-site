@@ -4,7 +4,6 @@ const CLIENT_ID = "1557899239814733864";
 // הרשאות: 8 = Administrator. להרשאות מצומצמות אפשר לחשב ב-OAuth2 ← URL Generator
 const PERMISSIONS = "8";
 const INVITE = "https://discord.com/oauth2/authorize?client_id=" + CLIENT_ID + "&permissions=" + PERMISSIONS + "&scope=bot%20applications.commands";
-const PATREON_URL = "https://www.patreon.com/16938508/join";
 const SUPPORT_INVITE = "https://discord.gg/YjHkkwr5dD";
 const PANEL_URL = "https://shield-guard-client.vercel.app";   // פאנל הלקוחות
 
@@ -38,7 +37,7 @@ function apply() {
   document.querySelectorAll("[data-h]").forEach(e => e.innerHTML = T[e.dataset.h] ?? e.innerHTML);   // טקסטים סטטיים מהקובץ הזה בלבד
   document.getElementById("bl").value = lang;
   const cgLang = document.getElementById("cgLang"); if (cgLang) cgLang.value = lang;
-  link("[data-invite]", INVITE); link("[data-patreon]", PATREON_URL); link("[data-support]", SUPPORT_INVITE); link("[data-panel]", PANEL_URL);
+  link("[data-invite]", INVITE); link("[data-support]", SUPPORT_INVITE); link("[data-panel]", PANEL_URL);
 }
 document.getElementById("bl").onchange = e => { lang = e.target.value; store.set("sg_lang", lang); apply(); };
 const cgLangSel = document.getElementById("cgLang");
@@ -50,20 +49,10 @@ document.getElementById("y").textContent = new Date().getFullYear();
 // Bump CONSENT_VERSION when the policies change materially to ask returning visitors again.
 const CONSENT_VERSION = "2026-11-11";
 const consent = document.getElementById("consent");
-const pmodal = document.getElementById("pmodal");
 const lock = () => { document.body.style.overflow = "hidden"; };
-const unlock = () => { if ((consent && consent.hidden) && (pmodal && pmodal.hidden)) document.body.style.overflow = ""; };
+const unlock = () => { if (consent && consent.hidden) document.body.style.overflow = ""; };
 if (consent && store.get("sg_consent") !== CONSENT_VERSION) { consent.hidden = false; lock(); }
 const cgAccept = document.getElementById("cgAccept");
 if (cgAccept) cgAccept.onclick = () => { store.set("sg_consent", CONSENT_VERSION); consent.hidden = true; unlock(); };
-
-// Premium purchase: confirm key terms before leaving to Patreon.
-function showPm() { if (pmodal) { pmodal.hidden = false; lock(); } }
-function hidePm() { if (pmodal) { pmodal.hidden = true; unlock(); } }
-document.querySelectorAll("[data-patreon]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); showPm(); }));
-const pmGo = document.getElementById("pmGo"), pmCancel = document.getElementById("pmCancel");
-if (pmGo) pmGo.onclick = () => { hidePm(); window.open(PATREON_URL, "_blank", "noopener"); };
-if (pmCancel) pmCancel.onclick = () => hidePm();
-if (pmodal) pmodal.addEventListener("mousedown", e => { if (e.target === pmodal) hidePm(); });
 
 apply();
