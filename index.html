@@ -88,7 +88,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:34px 0 50px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 .cgate{position:fixed;inset:0;z-index:999;display:grid;place-items:center;padding:20px;background:rgba(5,3,4,.74);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .cgate[hidden]{display:none}
-.cgbox{max-width:480px;width:100%;padding:28px;text-align:center;border-radius:18px}
+.cgbox{position:relative;max-width:480px;width:100%;padding:28px;text-align:center;border-radius:18px}
 .cgico{font-size:40px;line-height:1}
 .cgbox h2{margin:12px 0 8px;font-size:22px}
 .cgbox p{color:var(--muted,#9aa3b2);line-height:1.6;margin:0 0 14px}
@@ -219,6 +219,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:34px 0 50px}
 
 <div id="consent" class="cgate" hidden role="dialog" aria-modal="true" aria-labelledby="cgTitle">
   <div class="cgbox glass">
+    <select class="sm lang-sel" id="cgLang" aria-label="Language" style="position:absolute;top:14px;inset-inline-end:14px"><option value="he">עברית</option><option value="en">English</option><option value="ru">Русский</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="tr">Türkçe</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="uk">Українська</option><option value="id">Bahasa Indonesia</option><option value="hi">हिन्दी</option></select>
     <div class="cgico"><img src="/img/security-bot-logo.gif" alt="" width="64" height="64"></div>
     <h2 id="cgTitle" data-i="cgTitle">ברוכים הבאים ל-FiveShield Bot</h2>
     <p data-i="cgBody">לפני שממשיכים, חשוב שתכירו ותאשרו את תנאי השימוש ומדיניות הפרטיות שלנו. הם מסבירים איזה מידע הבוט מעבד, איך אנחנו שומרים עליו ומה הזכויות שלכם.</p>

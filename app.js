@@ -37,9 +37,12 @@ function apply() {
   document.querySelectorAll("[data-i]").forEach(e => e.textContent = T[e.dataset.i] ?? e.textContent);
   document.querySelectorAll("[data-h]").forEach(e => e.innerHTML = T[e.dataset.h] ?? e.innerHTML);   // טקסטים סטטיים מהקובץ הזה בלבד
   document.getElementById("bl").value = lang;
+  const cgLang = document.getElementById("cgLang"); if (cgLang) cgLang.value = lang;
   link("[data-invite]", INVITE); link("[data-patreon]", PATREON_URL); link("[data-support]", SUPPORT_INVITE); link("[data-panel]", PANEL_URL);
 }
 document.getElementById("bl").onchange = e => { lang = e.target.value; store.set("sg_lang", lang); apply(); };
+const cgLangSel = document.getElementById("cgLang");
+if (cgLangSel) cgLangSel.onchange = e => { lang = e.target.value; store.set("sg_lang", lang); apply(); };
 document.getElementById("bt").onclick = () => { theme = theme === "dark" ? "light" : "dark"; store.set("sg_theme", theme); apply(); };
 document.getElementById("y").textContent = new Date().getFullYear();
 
