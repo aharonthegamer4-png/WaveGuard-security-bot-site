@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://security-bot-production-2c03.up.railway.app; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.paddle.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://security-bot-production-2c03.up.railway.app https://*.paddle.com; frame-src https://*.paddle.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/png" href="/img/favicon.png"><link rel="apple-touch-icon" href="/img/security-bot-logo.gif">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -186,7 +186,9 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:34px 0 50px}
         <div class="price"><span data-i="pPrice">כ-30 ₪</span> <small data-i="pMonth">/ חודש</small></div>
         <ul><li data-i="pl1">מערכת טיקטים: פאנל, נושאים, רולי צוות וטרנסקריפט שנשמר בחדר הלוגים</li><li data-i="pl2">חסימות עם תפוגה וסגירה אוטומטית של טיקטים לא פעילים</li><li data-i="pl3">מחולל משאב לוגים לשרת FiveM, ישירות מהפאנל באתר</li><li data-i="pl4">כל פיצ&#x27;ר פרימיום שייוסף בעתיד</li></ul>
         <a class="btn main" href="#" data-patreon data-i="pJoin">💎 הצטרפו ב-Patreon</a>
+        <button class="btn" type="button" id="paddleBuy" style="margin-top:8px;width:100%;cursor:pointer">💳 תשלום חד-פעמי ₪30 (Paddle)</button>
         <p class="note" data-i="pNote">התשלום והחיוב החודשי מתבצעים ב-Patreon, ואפשר לבטל בכל רגע. האתר הזה לא רואה ולא שומר פרטי תשלום.</p>
+        <p id="paddleMsg" class="note" style="min-height:18px"></p>
       </div>
       <div class="steps">
         <div class="step glass"><div><b data-i="ps1t">מצטרפים למנוי</b><span data-i="ps1p">לוחצים על הכפתור, בוחרים את המנוי ומשלמים ב-Patreon.</span></div></div>
@@ -244,6 +246,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:34px 0 50px}
     </div>
   </div>
 </div>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
+<script src="paddle-checkout.js" defer></script>
 <script src="app.js" defer></script>
 <script src="stats.js" defer></script>
 </body>
