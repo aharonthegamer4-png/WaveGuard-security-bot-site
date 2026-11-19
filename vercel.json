@@ -33,5 +33,18 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "security-bot-site.vercel.app"
+        }
+      ],
+      "destination": "https://waveguard-acsecurity-bot-site.vercel.app/:path*",
+      "permanent": true
+    }
   ]
 }
