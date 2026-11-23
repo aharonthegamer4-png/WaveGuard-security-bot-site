@@ -27,7 +27,7 @@ const LANGS = {he: "rtl", en: "ltr", ru: "ltr", es: "ltr", fr: "ltr", de: "ltr",
 // שפות בלי תרגום מלא מוצגות באנגלית (fallback) עד שיתווספו להן טקסטים ב-I18N
 let lang = store.get("sg_lang") || "en";
 if (!LANGS[lang]) lang = "he";
-let theme = store.get("sg_theme") || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+let theme = store.get("sg_theme") || "dark";
 function link(sel, url) { document.querySelectorAll(sel).forEach(a => { a.href = url; a.target = "_blank"; a.rel = "noopener"; }); }
 function apply() {
   const d = document.documentElement, T = I18N[lang] || I18N.en;
