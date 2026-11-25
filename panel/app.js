@@ -727,3 +727,12 @@ const I18N = {
   show();
   if (window.__jump) showGuild(jump);
 })();
+
+/* ───────── sidebar ראשי: כפתור "בית" (שאר הפריטים הם קישורים חיצוניים) ───────── */
+{
+  const rh = document.getElementById("rn-home");
+  if (rh) rh.addEventListener("click", () => {
+    try { if (typeof leave === "function" && !leave()) return; } catch {}
+    if (typeof showServers === "function") showServers().catch(e => toast(e.message));
+  });
+}
