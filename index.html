@@ -20,25 +20,25 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "WaveGuard Security Bot", "url": "https://waveguard-acsecurity-bot-site.vercel.app/", "description": "בוט אבטחה מלא לדיסקורד: אנטי-ניוק, אנטי-ריידים, שער כניסה, הסגר, אוטומוד, אימות, וולקם ומודרציה.", "applicationCategory": "SecurityApplication", "operatingSystem": "Web", "inLanguage": "he", "author": {"@type": "Person", "name": "Aharon the gamer"}, "publisher": {"@type": "Organization", "name": "WaveGuard", "url": "https://waveguard-ac.vercel.app/", "logo": "https://waveguard-ac.vercel.app/logo.png", "sameAs": ["https://discord.gg/YjHkkwr5dD", "https://github.com/aharonthegamer4-png/Shield-Guard"], "founder": {"@type": "Person", "name": "Aharon the gamer"}}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060a16;--glass:#0b1736d9;--card:#0b1736d9;--g2:#ffffff0d;--line:#78aaff24;--line2:#60c5ff3d;
-  --text:#eaf2ff;--muted:#8ba1cc;--faint:#5f74a0;--accent:#60c5ff;--accent2:#2f7bff;--ok:#34d399;--shadow:#0009;--navbg:#060a16d9;--aur:.5}
-[data-theme=light]{--bg:#eef3fb;--glass:#ffffffd9;--card:#ffffffd9;--g2:#0000000a;--line:#1a3a7a1f;--line2:#2f7bff3a;
-  --text:#0d1a33;--muted:#4a5a7a;--faint:#8295b5;--accent:#1676d8;--accent2:#0b4fd0;--ok:#0f9d6b;--shadow:#1a3a7a22;--navbg:#ffffffe0;--aur:.22}
+:root{--bg:#060a16;--glass:#0b1736d9;--card:#0b1736d9;--g2:#ffffff0d;--line:#a78bfa24;--line2:#a78bfa3d;
+  --text:#eaf2ff;--muted:#8ba1cc;--faint:#5f74a0;--accent:#a78bfa;--accent2:#7c3aed;--ok:#34d399;--shadow:#0009;--navbg:#060a16d9;--aur:.5}
+[data-theme=light]{--bg:#eef3fb;--glass:#ffffffd9;--card:#ffffffd9;--g2:#0000000a;--line:#1a3a7a1f;--line2:#7c3aed3a;
+  --text:#0d1a33;--muted:#4a5a7a;--faint:#8295b5;--accent:#6d28d9;--accent2:#5b21b6;--ok:#0f9d6b;--shadow:#1a3a7a22;--navbg:#ffffffe0;--aur:.22}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{background:var(--bg);color:var(--text);font-family:Heebo,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.65;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 .aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
 .aurora i{position:absolute;width:55vw;height:55vw;border-radius:50%;filter:blur(100px);opacity:var(--aur);animation:fl 24s ease-in-out infinite alternate}
-.aurora i:nth-child(1){background:#1f52d9;top:-22vw;inset-inline-end:-12vw}
-.aurora i:nth-child(2){background:#2f7bff;bottom:-26vw;inset-inline-start:-12vw;animation-delay:-8s}
-.aurora i:nth-child(3){background:#60c5ff;width:30vw;height:30vw;top:36vh;left:34vw;opacity:calc(var(--aur)/2.4);animation-delay:-14s}
+.aurora i:nth-child(1){background:#4c1d95;top:-22vw;inset-inline-end:-12vw}
+.aurora i:nth-child(2){background:#7c3aed;bottom:-26vw;inset-inline-start:-12vw;animation-delay:-8s}
+.aurora i:nth-child(3){background:#a78bfa;width:30vw;height:30vw;top:36vh;left:34vw;opacity:calc(var(--aur)/2.4);animation-delay:-14s}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:url(/img/security-bot-logo.gif) center 26%/min(560px,76vw) no-repeat fixed;opacity:.11;
   -webkit-mask-image:radial-gradient(circle at 50% 26%,#000 22%,transparent 58%);mask-image:radial-gradient(circle at 50% 26%,#000 22%,transparent 58%)}
 [data-theme=light] body::after{opacity:.06}
-[data-theme=light] h1 span{background:linear-gradient(180deg,#0b4fd0,#1676d8 55%,#2f7bff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:none}
-[data-theme=light] .stat b{background:linear-gradient(180deg,#0d1a33,#1676d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-theme=light] h1 span{background:linear-gradient(180deg,#5b21b6,#6d28d9 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent;filter:none}
+[data-theme=light] .stat b{background:linear-gradient(180deg,#0d1a33,#6d28d9);-webkit-background-clip:text;background-clip:text;color:transparent}
 @keyframes fl{to{transform:translate(6vw,5vh) scale(1.15)}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
@@ -47,7 +47,7 @@ header.nav{position:sticky;top:12px;z-index:30;margin:12px auto 0;max-width:1120
 .navin{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;background:var(--navbg);
   border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 30px var(--shadow)}
 .logo{font-weight:800;font-size:19px;display:flex;align-items:center;gap:10px;white-space:nowrap;font-family:Rajdhani,Heebo,sans-serif;letter-spacing:.4px}
-.logo i{overflow:hidden;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-style:normal;box-shadow:0 6px 22px -6px #60c5ffaa}
+.logo i{overflow:hidden;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-style:normal;box-shadow:0 6px 22px -6px #a78bfaaa}
 .logo i img{width:100%;height:100%;display:block;border-radius:10px}
 .links{display:flex;gap:4px}
 .links a{padding:6px 11px;border-radius:9px;color:var(--muted);font-weight:500;font-size:14.5px;transition:.15s;white-space:nowrap}
@@ -55,10 +55,10 @@ header.nav{position:sticky;top:12px;z-index:30;margin:12px auto 0;max-width:1120
 .acts{display:flex;gap:8px;align-items:center}
 .btn,button{font:inherit;color:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:7px;justify-content:center;
   padding:10px 20px;border-radius:12px;font-weight:600;border:1px solid var(--line);background:var(--g2);transition:.18s;white-space:nowrap}
-.btn:hover,button:hover{transform:translateY(-2px);border-color:var(--line2);background:#60c5ff14}
+.btn:hover,button:hover{transform:translateY(-2px);border-color:var(--line2);background:#a78bfa14}
 .btn.main{background:linear-gradient(135deg,var(--accent2),var(--accent));border:0;color:#02142e;font-weight:700;
-  box-shadow:0 10px 30px -8px #2f7bffaa,inset 0 1px 0 #ffffff66}
-.btn.main:hover{filter:brightness(1.06);box-shadow:0 16px 40px -8px #2f7bffcc,inset 0 1px 0 #ffffff88}
+  box-shadow:0 10px 30px -8px #7c3aedaa,inset 0 1px 0 #ffffff66}
+.btn.main:hover{filter:brightness(1.06);box-shadow:0 16px 40px -8px #7c3aedcc,inset 0 1px 0 #ffffff88}
 .btn.sm,button.sm{padding:7px 13px;font-size:14px;border-radius:10px}
 .acts .btn{white-space:nowrap}
 @media(max-width:1360px){.links{display:none}}
@@ -70,10 +70,14 @@ button#bt{padding:7px 11px}
 .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 15px;border-radius:99px;background:#0b1736b3;color:var(--accent);
   font-size:13.5px;font-weight:600;margin-bottom:20px;border:1px solid var(--line2)}
 h1{font-size:clamp(36px,6.5vw,72px);line-height:1.08;margin-bottom:18px;font-weight:800;letter-spacing:-1px;font-family:Rajdhani,Heebo,sans-serif}
-h1 span{background:linear-gradient(180deg,#ffffff,#b9dcff 55%,#5aa8ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 36px #2f7bff44)}
+h1 span{background:linear-gradient(180deg,#ffffff,#ddd6fe 55%,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 36px #7c3aed44)}
 .hero p{color:var(--muted);font-size:18.5px;max-width:640px;margin:0 auto 30px}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.hero-gif{display:block;width:100%;max-width:660px;height:auto;margin:34px auto 0;border-radius:18px;border:1px solid var(--line2);box-shadow:0 30px 80px -30px #2f7bff99,0 0 0 1px #60c5ff1f}
+.hero-gif{display:block;width:100%;max-width:660px;height:auto;margin:34px auto 0;border-radius:18px;border:1px solid var(--line2);box-shadow:0 30px 80px -30px #7c3aed99,0 0 0 1px #a78bfa1f}
+.announce{display:inline-flex;align-items:center;gap:10px;margin:0 auto 22px;padding:7px 8px 7px 16px;border-radius:99px;background:var(--glass);border:1px solid var(--line2);color:var(--text);font-size:14px;font-weight:500;transition:.18s;backdrop-filter:blur(12px)}
+.announce:hover{border-color:var(--accent);transform:translateY(-1px)}
+.announce b{font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:99px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#02142e}
+.announce .arr{color:var(--accent);font-weight:700}
 .stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}
 .stat{padding:14px 26px;border-radius:14px}
 .stat b{display:block;font-size:28px;font-weight:800;font-family:Rajdhani,sans-serif;background:linear-gradient(180deg,var(--text),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -84,7 +88,7 @@ h2{font-size:clamp(26px,4vw,36px);margin-bottom:8px;font-weight:800}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:16px}
 .card{padding:22px;border-radius:16px;transition:.2s}
 .card:hover{border-color:var(--line2);transform:translateY(-3px)}
-.card .ic{font-size:26px;margin-bottom:12px;width:50px;height:50px;border-radius:13px;background:linear-gradient(135deg,#2f7bff2e,#60c5ff14);border:1px solid var(--line2);display:grid;place-items:center;color:var(--accent)}
+.card .ic{font-size:26px;margin-bottom:12px;width:50px;height:50px;border-radius:13px;background:linear-gradient(135deg,#7c3aed2e,#a78bfa14);border:1px solid var(--line2);display:grid;place-items:center;color:var(--accent)}
 .card .ic img{width:38px;height:38px;border-radius:10px;display:block}
 .card h3{font-size:17px;margin-bottom:6px}
 .card p{color:var(--muted);font-size:14.5px}
@@ -104,14 +108,14 @@ code{background:var(--g2);border:1px solid var(--line);border-radius:8px;padding
 .step span{color:var(--muted);font-size:14.5px}
 .step span a{color:var(--accent);font-weight:600}
 .premium{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.plan{background:linear-gradient(160deg,#2f7bff26,var(--glass) 62%);border:1px solid var(--accent);border-radius:18px;padding:28px;box-shadow:0 0 0 1px #60c5ff33,0 30px 80px -36px #2f7bffcc}
+.plan{background:linear-gradient(160deg,#7c3aed26,var(--glass) 62%);border:1px solid var(--accent);border-radius:18px;padding:28px;box-shadow:0 0 0 1px #a78bfa33,0 30px 80px -36px #7c3aedcc}
 .plan .price{font-size:44px;font-weight:800;line-height:1.1;margin:10px 0 2px;font-family:Rajdhani,sans-serif}
 .plan .price small{font-size:16px;font-weight:500;color:var(--muted)}
 .plan ul{list-style:none;padding:0;margin:18px 0 22px;display:grid;gap:10px}
 .plan li{padding-inline-start:28px;position:relative}
 .plan li::before{content:"\2713";position:absolute;inset-inline-start:0;color:var(--ok);font-weight:800}
 .plan .note{color:var(--muted);font-size:13px;margin-top:12px}
-.final{text-align:center;background:linear-gradient(135deg,#2f7bff2e,#60c5ff10),var(--glass);border:1px solid var(--line2);border-radius:22px;padding:50px 20px;box-shadow:0 30px 80px -36px #2f7bff88}
+.final{text-align:center;background:linear-gradient(135deg,#7c3aed2e,#a78bfa10),var(--glass);border:1px solid var(--line2);border-radius:22px;padding:50px 20px;box-shadow:0 30px 80px -36px #7c3aed88}
 footer{text-align:center;color:var(--muted);font-size:13px;padding:34px 0 50px;border-top:1px solid var(--line);margin-top:20px}
 footer a{color:var(--accent)}
 @media(max-width:860px){.premium{grid-template-columns:1fr}.hero{padding:54px 0 36px}.navin{padding:9px 11px}.acts .btn.dash{display:none}}
@@ -121,7 +125,7 @@ footer a{color:var(--accent)}
 .cgate[hidden]{display:none}
 .cgbox{position:relative;max-width:480px;width:100%;padding:28px;text-align:center;border-radius:18px}
 .cgico{font-size:40px;line-height:1}
-.cgico img{width:64px;height:64px;border-radius:16px;display:block;margin:0 auto;box-shadow:0 8px 28px -6px #60c5ffaa}
+.cgico img{width:64px;height:64px;border-radius:16px;display:block;margin:0 auto;box-shadow:0 8px 28px -6px #a78bfaaa}
 .cgbox h2{margin:12px 0 8px;font-size:22px}
 .cgbox p{color:var(--muted);line-height:1.6;margin:0 0 14px}
 .cglinks{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:0 0 18px}
@@ -133,128 +137,129 @@ footer a{color:var(--accent)}
 <body>
 <div class="aurora"><i></i><i></i><i></i></div>
 <header class="nav">
-  <div class="navin">
-    <a class="logo" href="#top"><i><img src="/img/security-bot-logo.gif" alt="" width="36" height="36"></i><span>WaveGuard Security Bot</span></a>
-    <nav class="links" aria-label="Main">
-      <a href="#features" data-i="nFeat">יכולות</a><a href="#preview" data-i="nPrev">הצצה לפאנל</a><a href="#commands" data-i="nCmd">פקודות</a><a href="#premium" data-i="nPrem">פרימיום</a><a href="#start" data-i="nStart">איך מתחילים</a>
-    </nav>
-    <div class="acts">
-      <select class="sm lang-sel" id="bl" aria-label="Language"><option value="he">עברית</option><option value="en">English</option><option value="ru">Русский</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="tr">Türkçe</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="uk">Українська</option><option value="id">Bahasa Indonesia</option><option value="hi">हिन्दी</option></select>
-      <button class="sm" id="bt" aria-label="Theme">🌓</button>
-      <a class="btn sm dash" href="#" data-panel data-i="nPanel">פאנל ניהול</a>
-      <a class="btn main sm" href="#" data-invite data-i="nAdd">הוסף לשרת</a>
-    </div>
-  </div>
+ <div class="navin">
+ <a class="logo" href="#top"><i><img src="/img/security-bot-logo.gif" alt="" width="36" height="36"></i><span>WaveGuard Security Bot</span></a>
+ <nav class="links" aria-label="Main">
+ <a href="#features" data-i="nFeat">יכולות</a><a href="#preview" data-i="nPrev">הצצה לפאנל</a><a href="#commands" data-i="nCmd">פקודות</a><a href="#premium" data-i="nPrem">פרימיום</a><a href="#start" data-i="nStart">איך מתחילים</a>
+ </nav>
+ <div class="acts">
+ <select class="sm lang-sel" id="bl" aria-label="Language"><option value="he">עברית</option><option value="en">English</option><option value="ru">Русский</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="tr">Türkçe</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="uk">Українська</option><option value="id">Bahasa Indonesia</option><option value="hi">हिन्दी</option></select>
+ <button class="sm" id="bt" aria-label="Theme"></button>
+ <a class="btn sm dash" href="#" data-panel data-i="nPanel">פאנל ניהול</a>
+ <a class="btn main sm" href="#" data-invite data-i="nAdd">הוסף לשרת</a>
+ </div>
+ </div>
 </header>
 
 <div class="wrap" id="top">
-  <header class="hero">
-    <span class="badge" data-i="badge">🔒 הגנה מלאה לשרת הדיסקורד שלך</span>
-    <h1><span data-i="h1a">הגנה שלא נשברת</span><br><span style="background:none;-webkit-text-fill-color:currentColor;color:var(--text)" data-i="h1b">גם מול ניוק וריידים</span></h1>
-    <p data-i="heroP">אנטי-ניוק עם שחזור אוטומטי, שער כניסה, הסגר, אוטומוד מתקדם, אימות, וולקם מעוצב ומודרציה עם תיקים. הכל בפקודות סלאש ובעברית.</p>
-    <div class="cta">
-      <a class="btn main" href="#" data-invite data-i="ctaAdd">➕ הוסף את הבוט לשרת שלך</a>
-      <a class="btn" href="#premium" data-i="ctaPrem">💎 פרימיום</a>
-      <a class="btn" href="#commands" data-i="ctaCmd">📖 כל הפקודות</a>
-    </div>
-    <img class="hero-gif" src="img/security-bot.gif" alt="WaveGuard Security Bot blocking a scam link, a mass-ban attempt and verifying a new member" width="640" height="360">
-    <div class="stats">
-      <div class="stat glass"><b>10+</b><small data-i="st1">מערכות הגנה</small></div>
-      <div class="stat glass"><b>60+</b><small data-i="st2">פקודות סלאש</small></div>
-      <div class="stat glass"><b>24/7</b><small data-i="st3">הגנה אוטומטית</small></div>
-      <div class="stat glass" id="live-servers" hidden><b>0</b><small></small></div>
-      <div class="stat glass" id="live-bans" hidden><b>0</b><small></small></div>
-    </div>
-  </header>
+ <header class="hero">
+ <a class="announce" href="#commands"><b>NEW</b><span data-i="annText">מערכת לוגים חדשה — 8 קטגוריות פרימיום, חינם בהשקה. לחצו לפרטים.</span><span class="arr">‹</span></a><br>
+ <span class="badge" data-i="badge">הגנה מלאה לשרת הדיסקורד שלך</span>
+ <h1><span data-i="h1a">הגנה שלא נשברת</span><br><span style="background:none;-webkit-text-fill-color:currentColor;color:var(--text)" data-i="h1b">גם מול ניוק וריידים</span></h1>
+ <p data-i="heroP">אנטי-ניוק עם שחזור אוטומטי, שער כניסה, הסגר, אוטומוד מתקדם, אימות, וולקם מעוצב ומודרציה עם תיקים. הכל בפקודות סלאש ובעברית.</p>
+ <div class="cta">
+ <a class="btn main" href="#" data-invite data-i="ctaAdd">הוסף את הבוט לשרת שלך</a>
+ <a class="btn" href="#premium" data-i="ctaPrem">פרימיום</a>
+ <a class="btn" href="#commands" data-i="ctaCmd">כל הפקודות</a>
+ </div>
+ <img class="hero-gif" src="img/security-bot.gif" alt="WaveGuard Security Bot blocking a scam link, a mass-ban attempt and verifying a new member" width="640" height="360">
+ <div class="stats">
+ <div class="stat glass"><b>10+</b><small data-i="st1">מערכות הגנה</small></div>
+ <div class="stat glass"><b>60+</b><small data-i="st2">פקודות סלאש</small></div>
+ <div class="stat glass"><b>24/7</b><small data-i="st3">הגנה אוטומטית</small></div>
+ <div class="stat glass" id="live-servers" hidden><b>0</b><small></small></div>
+ <div class="stat glass" id="live-bans" hidden><b>0</b><small></small></div>
+ </div>
+ </header>
 
-  <section id="features">
-    <h2 data-i="fTitle">מה הבוט עושה</h2><p class="sub" data-i="fSub">כל מה ששרת צריך כדי להישאר בטוח, במקום אחד.</p>
-    <div class="grid">
-      <div class="card glass"><div class="ic"><img src="/img/security-bot-logo.gif" alt="" width="40" height="40"></div><h3 data-i="f1t">אנטי-ניוק</h3><p data-i="f1p">מזהה מחיקות ויצירות המוניות, חוסם את התוקף ומשחזר חדרים ורולים אוטומטית. כולל חסימת בוטים לא מורשים ומחיקת טמפלייטים.</p></div>
-      <div class="card glass"><div class="ic">🚨</div><h3 data-i="f2t">אנטי-ריידים</h3><p data-i="f2p">מזהה הצפת כניסות, מעלה זמנית את רמת האימות ויכול לנעול את השרת עד שהסכנה חולפת.</p></div>
-      <div class="card glass"><div class="ic">🚪</div><h3 data-i="f3t">שער כניסה</h3><p data-i="f3p">ניקוד חשבונות חשודים לפי גיל, שם ותמונת פרופיל. מי שבלי תמונה נכנס אוטומטית להסגר.</p></div>
-      <div class="card glass"><div class="ic">🔒</div><h3 data-i="f4t">הסגר במקום באן</h3><p data-i="f4p">מסיר רולים, מגביל לחדר ערעורים, ומחזיר הכל בלחיצה כשהצוות משחרר.</p></div>
-      <div class="card glass"><div class="ic">🧹</div><h3 data-i="f5t">אוטומוד מתקדם</h3><p data-i="f5p">מילים אסורות בעברית, ספאם, CAPS, אימוג&#x27;ים, הודעות כפולות, קישורי הזמנה ותיוגים המוניים, עם פטור לפי חדר או רול.</p></div>
-      <div class="card glass"><div class="ic">✅</div><h3 data-i="f6t">אימות</h3><p data-i="f6p">פאנל אימות בכפתור או בקאפצ&#x27;ה עם רקע ותיאור לבחירתך, והגנה מחשבונות חדשים.</p></div>
-      <div class="card glass"><div class="ic">👋</div><h3 data-i="f7t">וולקם מעוצב</h3><p data-i="f7p">כרטיס תמונה עם רקע, צבעים, מסגרת, כפתורי קישור, הודעה פרטית ורול אוטומטי. הכל מפאנל אחד בעברית.</p></div>
-      <div class="card glass"><div class="ic">📚</div><h3 data-i="f8t">מודרציה ותיקים</h3><p data-i="f8p">באן, קיק, טיימאאוט ואזהרות עם בדיקות היררכיה, והיסטוריה מלאה לכל משתמש.</p></div>
-      <div class="card glass"><div class="ic">📜</div><h3 data-i="f9t">לוגים וסריקת אבטחה</h3><p data-i="f9p">לוגים לכל אירוע חשוב, ו-/scan שנותן ציון אבטחה והמלצות לשיפור.</p></div>
-    </div>
-  </section>
+ <section id="features">
+ <h2 data-i="fTitle">מה הבוט עושה</h2><p class="sub" data-i="fSub">כל מה ששרת צריך כדי להישאר בטוח, במקום אחד.</p>
+ <div class="grid">
+ <div class="card glass"><h3 data-i="f1t">אנטי-ניוק</h3><p data-i="f1p">מזהה מחיקות ויצירות המוניות, חוסם את התוקף ומשחזר חדרים ורולים אוטומטית. כולל חסימת בוטים לא מורשים ומחיקת טמפלייטים.</p></div>
+ <div class="card glass"><h3 data-i="f2t">אנטי-ריידים</h3><p data-i="f2p">מזהה הצפת כניסות, מעלה זמנית את רמת האימות ויכול לנעול את השרת עד שהסכנה חולפת.</p></div>
+ <div class="card glass"><h3 data-i="f3t">שער כניסה</h3><p data-i="f3p">ניקוד חשבונות חשודים לפי גיל, שם ותמונת פרופיל. מי שבלי תמונה נכנס אוטומטית להסגר.</p></div>
+ <div class="card glass"><h3 data-i="f4t">הסגר במקום באן</h3><p data-i="f4p">מסיר רולים, מגביל לחדר ערעורים, ומחזיר הכל בלחיצה כשהצוות משחרר.</p></div>
+ <div class="card glass"><h3 data-i="f5t">אוטומוד מתקדם</h3><p data-i="f5p">מילים אסורות בעברית, ספאם, CAPS, אימוג&#x27;ים, הודעות כפולות, קישורי הזמנה ותיוגים המוניים, עם פטור לפי חדר או רול.</p></div>
+ <div class="card glass"><h3 data-i="f6t">אימות</h3><p data-i="f6p">פאנל אימות בכפתור או בקאפצ&#x27;ה עם רקע ותיאור לבחירתך, והגנה מחשבונות חדשים.</p></div>
+ <div class="card glass"><h3 data-i="f7t">וולקם מעוצב</h3><p data-i="f7p">כרטיס תמונה עם רקע, צבעים, מסגרת, כפתורי קישור, הודעה פרטית ורול אוטומטי. הכל מפאנל אחד בעברית.</p></div>
+ <div class="card glass"><h3 data-i="f8t">מודרציה ותיקים</h3><p data-i="f8p">באן, קיק, טיימאאוט ואזהרות עם בדיקות היררכיה, והיסטוריה מלאה לכל משתמש.</p></div>
+ <div class="card glass"><h3 data-i="f9t">לוגים וסריקת אבטחה</h3><p data-i="f9p">לוגים לכל אירוע חשוב, ו-/scan שנותן ציון אבטחה והמלצות לשיפור.</p></div>
+ </div>
+ </section>
 
-  <section id="preview">
-    <h2 data-i="prTitle">הצצה לפאנל</h2><p class="sub" data-i="prSub">ככה נראה הפאנל מבפנים, לפני שמתחילים.</p>
-    <div class="grid">
-      <figure class="card glass"><img src="screenshots/panel-overview.png" alt="" loading="lazy" width="1280" height="800" style="width:100%;height:auto;border-radius:12px"><figcaption data-i="pr1">סקירה כללית</figcaption></figure>
-      <figure class="card glass"><img src="screenshots/panel-automod.png" alt="" loading="lazy" width="1280" height="800" style="width:100%;height:auto;border-radius:12px"><figcaption data-i="pr2">אוטומוד</figcaption></figure>
-      <figure class="card glass"><img src="screenshots/panel-antinuke.png" alt="" loading="lazy" width="1280" height="800" style="width:100%;height:auto;border-radius:12px"><figcaption data-i="pr3">אנטי-ניוק</figcaption></figure>
-    </div>
-    <div class="cta" style="margin-top:24px"><a class="btn" href="demo/" data-i="prDemo">👀 צפייה בדמו</a><a class="btn" href="#" data-panel data-i="prBtn">🖥️ פתיחת הפאנל</a></div>
-  </section>
+ <section id="preview">
+ <h2 data-i="prTitle">הצצה לפאנל</h2><p class="sub" data-i="prSub">ככה נראה הפאנל מבפנים, לפני שמתחילים.</p>
+ <div class="grid">
+ <figure class="card glass"><img src="screenshots/panel-overview.png" alt="" loading="lazy" width="1280" height="800" style="width:100%;height:auto;border-radius:12px"><figcaption data-i="pr1">סקירה כללית</figcaption></figure>
+ <figure class="card glass"><img src="screenshots/panel-automod.png" alt="" loading="lazy" width="1280" height="800" style="width:100%;height:auto;border-radius:12px"><figcaption data-i="pr2">אוטומוד</figcaption></figure>
+ <figure class="card glass"><img src="screenshots/panel-antinuke.png" alt="" loading="lazy" width="1280" height="800" style="width:100%;height:auto;border-radius:12px"><figcaption data-i="pr3">אנטי-ניוק</figcaption></figure>
+ </div>
+ <div class="cta" style="margin-top:24px"><a class="btn" href="demo/" data-i="prDemo">צפייה בדמו</a><a class="btn" href="#" data-panel data-i="prBtn">פתיחת הפאנל</a></div>
+ </section>
 
-  <section id="commands">
-    <h2 data-i="cTitle">פקודות</h2><p class="sub" data-i="cSub">הכל בפקודות סלאש. הקלד / בדיסקורד כדי לראות את הכל.</p>
-    <details class="glass" open><summary data-i="c1">🛡️ הגנה</summary><div class="cmds"><code>/antinuke status</code><code>/antinuke toggle</code><code>/antinuke allowbot</code><code>/antiraid config</code><code>/antiraid status</code><code>/lockdown</code><code>/unlockdown</code><code>/scan</code></div></details>
-    <details class="glass"><summary data-i="c2">🚪 כניסה והסגר</summary><div class="cmds"><code>/joingate config</code><code>/joingate check</code><code>/joingate allow</code><code>/quarantine setup</code><code>/quarantine add</code><code>/quarantine release</code><code>/verify setup</code><code>/welcome</code></div></details>
-    <details class="glass"><summary data-i="c3">🧹 אוטומוד</summary><div class="cmds"><code>/automod status</code><code>/automod toggle</code><code>/automod limits</code><code>/automod badword_add</code><code>/automod badword_preset</code><code>/automod exempt_channel</code><code>/automod exempt_role</code></div></details>
-    <details class="glass"><summary data-i="c4">🔨 מודרציה ותיקים</summary><div class="cmds"><code>/ban</code><code>/kick</code><code>/timeout</code><code>/warn</code><code>/history</code><code>/note</code><code>/case view</code><code>/lock</code><code>/clear</code><code>/slowmode</code></div></details>
-    <details class="glass"><summary data-i="c5">🎫 טיקטים (בחינם כרגע)</summary><div class="cmds"><code>/tickets setup</code><code>/tickets config</code><code>/tickets panel</code><code>/tickets topic_add</code><code>/tickets stats</code><code>/tickets close</code></div></details>
-    <details class="glass"><summary data-i="c6">⚙️ הגדרות</summary><div class="cmds"><code>/setup</code><code>/status</code><code>/setlog</code><code>/whitelist add</code><code>/logs toggle</code><code>/help</code></div></details>
-  </section>
+ <section id="commands">
+ <h2 data-i="cTitle">פקודות</h2><p class="sub" data-i="cSub">הכל בפקודות סלאש. הקלד / בדיסקורד כדי לראות את הכל.</p>
+ <details class="glass" open><summary data-i="c1">הגנה</summary><div class="cmds"><code>/antinuke status</code><code>/antinuke toggle</code><code>/antinuke allowbot</code><code>/antiraid config</code><code>/antiraid status</code><code>/lockdown</code><code>/unlockdown</code><code>/scan</code></div></details>
+ <details class="glass"><summary data-i="c2">כניסה והסגר</summary><div class="cmds"><code>/joingate config</code><code>/joingate check</code><code>/joingate allow</code><code>/quarantine setup</code><code>/quarantine add</code><code>/quarantine release</code><code>/verify setup</code><code>/welcome</code></div></details>
+ <details class="glass"><summary data-i="c3">אוטומוד</summary><div class="cmds"><code>/automod status</code><code>/automod toggle</code><code>/automod limits</code><code>/automod badword_add</code><code>/automod badword_preset</code><code>/automod exempt_channel</code><code>/automod exempt_role</code></div></details>
+ <details class="glass"><summary data-i="c4">מודרציה ותיקים</summary><div class="cmds"><code>/ban</code><code>/kick</code><code>/timeout</code><code>/warn</code><code>/history</code><code>/note</code><code>/case view</code><code>/lock</code><code>/clear</code><code>/slowmode</code></div></details>
+ <details class="glass"><summary data-i="c5">טיקטים (בחינם כרגע)</summary><div class="cmds"><code>/tickets setup</code><code>/tickets config</code><code>/tickets panel</code><code>/tickets topic_add</code><code>/tickets stats</code><code>/tickets close</code></div></details>
+ <details class="glass"><summary data-i="c6">הגדרות</summary><div class="cmds"><code>/setup</code><code>/status</code><code>/setlog</code><code>/whitelist add</code><code>/logs toggle</code><code>/help</code></div></details>
+ </section>
 
-  <section id="premium">
-    <h2 data-i="pTitle">💎 פרימיום</h2><p class="sub" data-i="pSub">🎉 כרגע כל פיצ׳רי הפרימיום, כולל הטיקטים, פתוחים לכולם בחינם. רוצים לתמוך בבוט? תשלום חד-פעמי מהיר ומאובטח.</p>
-    <div class="premium">
-      <div class="plan">
-        <b data-i="pPlan">מנוי פרימיום</b>
-        <div class="price"><span data-i="pPrice">כ-30 ₪</span> <small data-i="pMonth">/ חודש</small></div>
-        <ul><li data-i="pl1">מערכת טיקטים: פאנל, נושאים, רולי צוות וטרנסקריפט שנשמר בחדר הלוגים</li><li data-i="pl2">חסימות עם תפוגה וסגירה אוטומטית של טיקטים לא פעילים</li><li data-i="pl3">מחולל משאב לוגים לשרת FiveM, ישירות מהפאנל באתר</li><li data-i="pl4">כל פיצ&#x27;ר פרימיום שייוסף בעתיד</li></ul>
-        <button class="btn main" type="button" id="paddleBuy" style="width:100%;cursor:pointer">💳 תשלום חד-פעמי ₪30</button>
-        <p class="note" data-i="pNote">תשלום חד-פעמי מאובטח ישירות באתר — אשראי, PayPal או Google Pay, לפי מה שזמין. אנחנו לא רואים ולא שומרים את פרטי התשלום שלך.</p>
-        <p id="paddleMsg" class="note" style="min-height:18px"></p>
-      </div>
-      <div class="steps">
-        <div class="step glass"><div><b data-i="ps1t">לוחצים על הכפתור</b><span data-i="ps1p">לוחצים על כפתור התשלום, ומזינים את ה-Guild ID וה-Discord ID שלכם.</span></div></div>
-        <div class="step glass"><div><b data-i="ps2t">משלמים בביטחון</b><span data-i="ps2p">חלון תשלום מאובטח נפתח על האתר עצמו — אשראי, PayPal או Google Pay. פרטי התשלום לא עוברים דרך השרת שלנו בכלל.</span></div></div>
-        <div class="step glass"><div><b data-i="ps3t">מצטרפים לשרת התמיכה</b><span data-h="ps3p">כדאי להיות חבר בשרת שלנו לעדכונים ותמיכה. <a href="#" data-support>הצטרפות לשרת</a></span></div></div>
-        <div class="step glass"><div><b data-i="ps4t">הפרימיום נפתח אוטומטית</b><span data-i="ps4p">מיד אחרי התשלום הבוט שולח לכם DM אישור, והפרימיום נפתח לשרת אוטומטית.</span></div></div>
-      </div>
-    </div>
-  </section>
+ <section id="premium">
+ <h2 data-i="pTitle">פרימיום</h2><p class="sub" data-i="pSub">כרגע כל פיצ׳רי הפרימיום, כולל הטיקטים, פתוחים לכולם בחינם. רוצים לתמוך בבוט? תשלום חד-פעמי מהיר ומאובטח.</p>
+ <div class="premium">
+ <div class="plan">
+ <b data-i="pPlan">מנוי פרימיום</b>
+ <div class="price"><span data-i="pPrice">כ-30 ₪</span> <small data-i="pMonth">/ חודש</small></div>
+ <ul><li data-i="pl1">מערכת טיקטים: פאנל, נושאים, רולי צוות וטרנסקריפט שנשמר בחדר הלוגים</li><li data-i="pl2">חסימות עם תפוגה וסגירה אוטומטית של טיקטים לא פעילים</li><li data-i="pl3">מחולל משאב לוגים לשרת FiveM, ישירות מהפאנל באתר</li><li data-i="pl4">כל פיצ&#x27;ר פרימיום שייוסף בעתיד</li></ul>
+ <button class="btn main" type="button" id="paddleBuy" style="width:100%;cursor:pointer">תשלום חד-פעמי ₪30</button>
+ <p class="note" data-i="pNote">תשלום חד-פעמי מאובטח ישירות באתר — אשראי, PayPal או Google Pay, לפי מה שזמין. אנחנו לא רואים ולא שומרים את פרטי התשלום שלך.</p>
+ <p id="paddleMsg" class="note" style="min-height:18px"></p>
+ </div>
+ <div class="steps">
+ <div class="step glass"><div><b data-i="ps1t">לוחצים על הכפתור</b><span data-i="ps1p">לוחצים על כפתור התשלום, ומזינים את ה-Guild ID וה-Discord ID שלכם.</span></div></div>
+ <div class="step glass"><div><b data-i="ps2t">משלמים בביטחון</b><span data-i="ps2p">חלון תשלום מאובטח נפתח על האתר עצמו — אשראי, PayPal או Google Pay. פרטי התשלום לא עוברים דרך השרת שלנו בכלל.</span></div></div>
+ <div class="step glass"><div><b data-i="ps3t">מצטרפים לשרת התמיכה</b><span data-h="ps3p">כדאי להיות חבר בשרת שלנו לעדכונים ותמיכה. <a href="#" data-support>הצטרפות לשרת</a></span></div></div>
+ <div class="step glass"><div><b data-i="ps4t">הפרימיום נפתח אוטומטית</b><span data-i="ps4p">מיד אחרי התשלום הבוט שולח לכם DM אישור, והפרימיום נפתח לשרת אוטומטית.</span></div></div>
+ </div>
+ </div>
+ </section>
 
-  <section id="start">
-    <h2 data-i="sTitle">איך מתחילים</h2><p class="sub" data-i="sSub">ארבעה צעדים והשרת מוגן. אחר כך אפשר לנהל הכול גם מהפאנל באתר.</p>
-    <div class="steps">
-      <div class="step glass"><div><b data-i="s1t">מוסיפים את הבוט לשרת</b><span data-i="s1p">לוחצים על &quot;הוסף לשרת&quot; ובוחרים את השרת שלך. צריך הרשאת ניהול שרת.</span></div></div>
-      <div class="step glass"><div><b data-i="s2t">מעלים את הרול של הבוט לראש</b><span data-i="s2p">בהגדרות השרת ← רולים, גוררים את הרול של הבוט מעל כל שאר הרולים. בלי זה הוא לא יוכל להעניש או לשחזר.</span></div></div>
-      <div class="step glass"><div><b data-i="s3t">הגדרה מהירה</b><span data-h="s3p">הקלידו <code>/setup</code> ובחרו מהתפריטים חדר לוגים ורמת הגנה. כל ההתראות יגיעו לחדר הזה.</span></div></div>
-      <div class="step glass"><div><b data-i="s4t">בודקים את השרת</b><span data-h="s4p">הפקודה <code>/status</code> נותנת ציון הגנה ומראה בדיוק מה לתקן.</span></div></div>
-    </div>
-  </section>
+ <section id="start">
+ <h2 data-i="sTitle">איך מתחילים</h2><p class="sub" data-i="sSub">ארבעה צעדים והשרת מוגן. אחר כך אפשר לנהל הכול גם מהפאנל באתר.</p>
+ <div class="steps">
+ <div class="step glass"><div><b data-i="s1t">מוסיפים את הבוט לשרת</b><span data-i="s1p">לוחצים על &quot;הוסף לשרת&quot; ובוחרים את השרת שלך. צריך הרשאת ניהול שרת.</span></div></div>
+ <div class="step glass"><div><b data-i="s2t">מעלים את הרול של הבוט לראש</b><span data-i="s2p">בהגדרות השרת  רולים, גוררים את הרול של הבוט מעל כל שאר הרולים. בלי זה הוא לא יוכל להעניש או לשחזר.</span></div></div>
+ <div class="step glass"><div><b data-i="s3t">הגדרה מהירה</b><span data-h="s3p">הקלידו <code>/setup</code> ובחרו מהתפריטים חדר לוגים ורמת הגנה. כל ההתראות יגיעו לחדר הזה.</span></div></div>
+ <div class="step glass"><div><b data-i="s4t">בודקים את השרת</b><span data-h="s4p">הפקודה <code>/status</code> נותנת ציון הגנה ומראה בדיוק מה לתקן.</span></div></div>
+ </div>
+ </section>
 
-  <section>
-    <div class="final">
-      <h2 data-i="endT">מוכן להגן על השרת?</h2><p class="sub" data-i="endS">ההתקנה לוקחת פחות מדקה.</p>
-      <a class="btn main" href="#" data-invite data-i="endBtn">➕ הוסף את הבוט עכשיו</a>
-    </div>
-  </section>
+ <section>
+ <div class="final">
+ <h2 data-i="endT">מוכן להגן על השרת?</h2><p class="sub" data-i="endS">ההתקנה לוקחת פחות מדקה.</p>
+ <a class="btn main" href="#" data-invite data-i="endBtn">הוסף את הבוט עכשיו</a>
+ </div>
+ </section>
 
-  <footer><span data-i="foot">WaveGuard Security Bot • נבנה עם discord.py</span> © <span id="y"></span><br><a href="/terms" data-i="lTerms" style="text-decoration:underline">Terms of Service</a> · <a href="/privacy" data-i="lPriv" style="text-decoration:underline">Privacy Policy</a></footer>
+ <footer><span data-i="foot">WaveGuard Security Bot • נבנה עם discord.py</span> © <span id="y"></span><br><a href="/terms" data-i="lTerms" style="text-decoration:underline">Terms of Service</a> · <a href="/privacy" data-i="lPriv" style="text-decoration:underline">Privacy Policy</a></footer>
 </div>
 
 <div id="consent" class="cgate" hidden role="dialog" aria-modal="true" aria-labelledby="cgTitle">
-  <div class="cgbox glass">
-    <select class="sm lang-sel" id="cgLang" aria-label="Language" style="position:absolute;top:14px;inset-inline-end:14px"><option value="he">עברית</option><option value="en">English</option><option value="ru">Русский</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="tr">Türkçe</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="uk">Українська</option><option value="id">Bahasa Indonesia</option><option value="hi">हिन्दी</option></select>
-    <div class="cgico"><img src="/img/security-bot-logo.gif" alt="" width="64" height="64"></div>
-    <h2 id="cgTitle" data-i="cgTitle">ברוכים הבאים ל-WaveGuard Security Bot</h2>
-    <p data-i="cgBody">לפני שממשיכים, חשוב שתכירו ותאשרו את תנאי השימוש ומדיניות הפרטיות שלנו. הם מסבירים איזה מידע הבוט מעבד, איך אנחנו שומרים עליו ומה הזכויות שלכם.</p>
-    <div class="cglinks">
-      <a href="/terms" target="_blank" rel="noopener" data-i="cgTerms">📜 תנאי שימוש</a>
-      <a href="/privacy" target="_blank" rel="noopener" data-i="cgPriv">🔒 מדיניות פרטיות</a>
-    </div>
-    <button class="btn main" id="cgAccept" type="button" data-i="cgAccept">אני מאשר/ת וממשיך/ה</button>
-    <p class="cgnote" data-i="cgNote">לחיצה על הכפתור מהווה הסכמה לתנאי השימוש ולמדיניות הפרטיות.</p>
-  </div>
+ <div class="cgbox glass">
+ <select class="sm lang-sel" id="cgLang" aria-label="Language" style="position:absolute;top:14px;inset-inline-end:14px"><option value="he">עברית</option><option value="en">English</option><option value="ru">Русский</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="tr">Türkçe</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="uk">Українська</option><option value="id">Bahasa Indonesia</option><option value="hi">हिन्दी</option></select>
+ <div class="cgico"><img src="/img/security-bot-logo.gif" alt="" width="64" height="64"></div>
+ <h2 id="cgTitle" data-i="cgTitle">ברוכים הבאים ל-WaveGuard Security Bot</h2>
+ <p data-i="cgBody">לפני שממשיכים, חשוב שתכירו ותאשרו את תנאי השימוש ומדיניות הפרטיות שלנו. הם מסבירים איזה מידע הבוט מעבד, איך אנחנו שומרים עליו ומה הזכויות שלכם.</p>
+ <div class="cglinks">
+ <a href="/terms" target="_blank" rel="noopener" data-i="cgTerms">תנאי שימוש</a>
+ <a href="/privacy" target="_blank" rel="noopener" data-i="cgPriv">מדיניות פרטיות</a>
+ </div>
+ <button class="btn main" id="cgAccept" type="button" data-i="cgAccept">אני מאשר/ת וממשיך/ה</button>
+ <p class="cgnote" data-i="cgNote">לחיצה על הכפתור מהווה הסכמה לתנאי השימוש ולמדיניות הפרטיות.</p>
+ </div>
 </div>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
 <script src="paddle-checkout.js" defer></script>
