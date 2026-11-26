@@ -156,11 +156,38 @@ const SECS = [
     F("delete_after", "int", "מחיקה אוטומטית אחרי כמה שניות (0 = לא)", "Auto-delete after N seconds (0 = never)", {r: [0, 3600]}),
     F("dm_text", "long", "הודעה פרטית למצטרף (ריק = כבוי)", "DM to the new member (empty = off)", {max: 1500}),
     F("autorole_id", "role", "רול אוטומטי למצטרפים (ללא רולים מסוכנים)", "Auto-role for new members (no dangerous roles)"),
-    F("links", "links", "כפתורי קישור (שורה: טקסט|https://...) עד 5", "Link buttons (line: text|https://...) up to 5")])
+    F("links", "links", "כפתורי קישור (שורה: טקסט|https://...) עד 5", "Link buttons (line: text|https://...) up to 5")]),
+  std("verify", "✅", "אימות", "Verification", [
+    F("role_id", "role", "הרול שמקבלים אחרי אימות", "Role granted after verification"),
+    F("mode", "choice", "סוג האימות", "Verification type", {opts: [["button", "כפתור", "Button"], ["captcha", "קאפצ'ה (שאלה)", "Captcha (question)"]]}),
+    F("min_account_days", "int", "גיל חשבון מינימלי בימים (0 = כבוי)", "Minimum account age in days (0 = off)", {r: [0, 365], h: ["כדי לפרסם את פאנל האימות עצמו הרץ /verify setup בדיסקורד; כאן משנים את ההגדרות.", "To post the verification panel itself run /verify setup in Discord; here you edit its settings."]})]),
+  std("antiping", "📣", "אנטי-פינג", "Anti-Ping", [
+    F("enabled", "bool", "חסום תיוג @everyone/@here ממי שלא מורשה, וזהה ghost-ping", "Block @everyone/@here pings from unauthorized members, detect ghost-pings")]),
+  std("antiscam", "🎣", "אנטי-סקאם", "Anti-Scam", [
+    F("enabled", "bool", "זהה ומחק הודעות הונאה/פישינג", "Detect and delete scam/phishing messages"),
+    F("action", "choice", "פעולה על שולח ההונאה", "Action on the scammer", {opts: [["delete", "מחיקה בלבד", "Delete only"], ["timeout", "מחיקה + טיימאאוט 10 דק'", "Delete + 10-min timeout"], ["kick", "מחיקה + קיק", "Delete + kick"]]})]),
+  std("starboard", "⭐", "סטארבורד", "Starboard", [
+    F("channel_id", "channel", "חדר הסטארבורד", "Starboard channel"),
+    F("threshold", "int", "כמה ⭐ צריך כדי להופיע", "How many ⭐ to appear", {r: [1, 50]})]),
+  std("counting", "🔢", "ספירה", "Counting", [
+    F("channel", "channel", "חדר הספירה", "Counting channel")]),
+  std("suggestions", "💡", "הצעות", "Suggestions", [
+    F("channel_id", "channel", "חדר ההצעות", "Suggestions channel")]),
+  std("tempvoice", "🔊", "ערוצי קול זמניים", "Temp voice", [
+    F("hub_id", "vchannel", "ערוץ הקול שהכניסה אליו פותחת ערוץ זמני", "The voice channel that creates a temp channel on join"),
+    F("category_id", "category", "הקטגוריה שבה ייפתחו הערוצים (רשות)", "The category the channels open in (optional)")]),
+  std("birthday", "🎂", "ימי הולדת", "Birthdays", [
+    F("channel_id", "channel", "חדר הברכות", "Greetings channel")]),
+  std("invitelog", "📨", "מעקב הזמנות", "Invite tracking", [
+    F("channel_id", "channel", "חדר יומן ההזמנות", "Invite log channel")]),
+  std("feedback", "⭐", "פידבק צוות", "Staff feedback", [
+    F("channel_id", "channel", "חדר הפידבק", "Feedback channel")]),
+  std("quarantine", "🚷", "הסגר", "Quarantine", [
+    F("role_id", "role", "רול ההסגר (מסיר גישה לשאר השרת)", "Quarantine role (removes access to the rest of the server)")])
 ];
-const PICK = new Set(["channel", "chs", "role", "rls"]);
+const PICK = new Set(["channel", "chs", "role", "rls", "vchannel", "category"]);
 const fid = (d, f) => `f_${d.id}_${f.k}`;
-const listFor = f => (f.type === "channel" || f.type === "chs" ? G.channels : G.roles) || [];
+const listFor = f => (f.type === "vchannel" ? G.voice_channels : f.type === "category" ? G.categories : f.type === "channel" || f.type === "chs" ? G.channels : G.roles) || [];
 
 function normVal(f, v) {
   switch (f.type) {
@@ -170,7 +197,7 @@ function normVal(f, v) {
     case "text": case "text0": case "long": return String(v ?? "").trim();
     case "color": return /^#[0-9a-f]{6}$/i.test(v || "") ? v.toUpperCase() : /^[0-9a-f]{6}$/i.test(v || "") ? "#" + v.toUpperCase() : "#5865F2";
     case "ids": case "lines": case "chs": case "rls": return (Array.isArray(v) ? v : []).map(String);
-    case "channel": case "role": return v == null ? "" : String(v);
+    case "channel": case "role": case "vchannel": case "category": return v == null ? "" : String(v);
     case "links": return (Array.isArray(v) ? v : []).map(l => ({label: l.label, url: l.url}));
     case "uperms": { const o = {}; Object.keys(v || {}).sort().forEach(k => { const a = [...(v[k] || [])].sort(); if (a.length) o[k] = a; }); return o; }
     default: return v;
@@ -180,7 +207,7 @@ function disp(f, v) {
   if (f.type === "bool") return v ? "✔" : "✘";
   if (f.type === "uperms") return Object.keys(v || {}).length + " " + t("items");
   if (["ids", "lines", "chs", "rls", "links"].includes(f.type)) return (v || []).length + " " + t("items");
-  if (f.type === "channel" || f.type === "role") { if (!v) return t("none"); const o = listFor(f).find(x => String(x.id) === String(v)); return (f.type === "channel" ? "#" : "@") + (o ? o.name : v); }
+  if (["channel", "role", "vchannel", "category"].includes(f.type)) { if (!v) return t("none"); const o = listFor(f).find(x => String(x.id) === String(v)); const pre = f.type === "role" ? "@" : f.type === "vchannel" ? "🔊" : f.type === "category" ? "📁" : "#"; return pre + (o ? o.name : v); }
   if (f.type === "choice") { const o = f.opts.find(o => String(o[0]) === String(v)); return o ? o[lang === "en" ? 2 : 1] : v; }
   if (v === "" || v == null) return t("empty");
   const s = String(v); return s.length > 40 ? s.slice(0, 40) + "…" : s;
@@ -291,7 +318,7 @@ function readField(def, f) {
     }
     case "color": return el.value.toUpperCase();
     case "uperms": return JSON.parse(JSON.stringify((UP[id] || {}).map || {}));
-    case "channel": case "role": return [...PK[id].sel][0] || "";
+    case "channel": case "role": case "vchannel": case "category": return [...PK[id].sel][0] || "";
     default: return [...PK[id].sel];
   }
 }
@@ -315,7 +342,7 @@ function secHtml(def, pre = "") {
 function bindSec(def) {
   const form = $("#sec_" + def.id); if (!form) return;
   def.f.forEach(f => { if (f.type === "uperms" && !(f.own && !G.can_whitelist)) upInit(fid(def, f), (VALS[def.id] || {})[f.k] || {}); });
-  def.f.forEach(f => { if (PICK.has(f.type)) pkInit(fid(def, f), {multi: f.type === "chs" || f.type === "rls", list: listFor(f), sel: f.type === "chs" || f.type === "rls" ? ((VALS[def.id] || {})[f.k] || []) : [(VALS[def.id] || {})[f.k] ?? ""].filter(x => x !== ""), pre: f.type === "channel" || f.type === "chs" ? "#" : "@"}); });
+  def.f.forEach(f => { if (PICK.has(f.type)) pkInit(fid(def, f), {multi: f.type === "chs" || f.type === "rls", list: listFor(f), sel: f.type === "chs" || f.type === "rls" ? ((VALS[def.id] || {})[f.k] || []) : [(VALS[def.id] || {})[f.k] ?? ""].filter(x => x !== ""), pre: f.type === "vchannel" ? "🔊" : f.type === "category" ? "📁" : f.type === "channel" || f.type === "chs" ? "#" : "@"}); });
   const on = e => { const w = e.target.closest && e.target.closest(".fld"); if (w) w.dataset.t = 1; refresh(def); };
   form.addEventListener("input", on); form.addEventListener("change", on);
   form.onsubmit = e => { e.preventDefault(); saveSec(def); };
@@ -534,7 +561,7 @@ async function rPremium(c) {
 }
 
 /* ───────── כלים: אשף, ייצוא/ייבוא, העתקה, היסטוריה ───────── */
-const ID_TYPES = new Set(["channel", "chs", "role", "rls", "uperms"]);
+const ID_TYPES = new Set(["channel", "chs", "role", "rls", "uperms", "vchannel", "category"]);
 function settingsPayload(src, {noIds}) {
   const out = {};
   for (const def of SECS) {
