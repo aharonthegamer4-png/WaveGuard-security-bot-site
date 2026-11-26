@@ -111,7 +111,9 @@ const SECS = [
     F("nuke", "bool", "הגנת ניוק: מחיקות/יצירות/באנים המוניים עם שחזור", "Nuke protection: mass deletes/creates/bans with restore", {h: ["מזהה מי שמוחק או מבצע באנים המוניים, עוצר אותו ומשחזר.", "Detects anyone mass-deleting or mass-banning, stops them and restores."]}),
     F("botguard", "bool", "חסימה אוטומטית של בוטים לא מורשים ושל מי שהוסיף אותם", "Auto-block unauthorized bots and whoever added them", {h: ["בוט שלא ברשימת המורשים נבעט.", "Bots that are not on the allowed list are removed."]}),
     F("templates", "bool", "מחיקת טמפלייטים של השרת", "Delete server templates", {h: ["מונע שכפול של השרת באמצעות טמפלייט.", "Prevents your server from being cloned with a template."]}),
-    F("selfrole", "bool", "הסרה וטיימאאוט למי שנותן לעצמו רול", "Remove + timeout anyone who gives themselves a role"),
+    F("roles", "bool", "באן על נתינה/הוספה של רולים למשתמשים", "Ban anyone who gives or adds roles to members", {h: ["כבוי כברירת מחדל בשרת חדש. מי שקיבל הרשאה למטה לא ייחסם.", "Off by default on a new server. Users allowed below are not banned."]}),
+    F("role_create", "bool", "באן על יצירת רולים", "Ban anyone who creates roles", {h: ["כבוי כברירת מחדל בשרת חדש.", "Off by default on a new server."]}),
+    F("user_perms", "uperms", "הרשאות למשתמשים: על מה כל משתמש לא יקבל באן", "User permissions: what each user may do without being banned", {own: true, h: ["בחר משתמש וסמן מה מותר לו. כל פעולה שלא סומנה עדיין גורמת לבאן.", "Pick a user and tick what they may do. Anything not ticked still gets them banned."]}),
     F("allowed_bots", "ids", "בוטים מורשים (ID בכל שורה)", "Allowed bots (one ID per line)")]),
   std("antiraid", "🚨", "אנטי-ריידים", "Anti-Raid", [
     F("enabled", "bool", "פעיל", "Enabled"),
@@ -170,11 +172,13 @@ function normVal(f, v) {
     case "ids": case "lines": case "chs": case "rls": return (Array.isArray(v) ? v : []).map(String);
     case "channel": case "role": return v == null ? "" : String(v);
     case "links": return (Array.isArray(v) ? v : []).map(l => ({label: l.label, url: l.url}));
+    case "uperms": { const o = {}; Object.keys(v || {}).sort().forEach(k => { const a = [...(v[k] || [])].sort(); if (a.length) o[k] = a; }); return o; }
     default: return v;
   }
 }
 function disp(f, v) {
   if (f.type === "bool") return v ? "✔" : "✘";
+  if (f.type === "uperms") return Object.keys(v || {}).length + " " + t("items");
   if (["ids", "lines", "chs", "rls", "links"].includes(f.type)) return (v || []).length + " " + t("items");
   if (f.type === "channel" || f.type === "role") { if (!v) return t("none"); const o = listFor(f).find(x => String(x.id) === String(v)); return (f.type === "channel" ? "#" : "@") + (o ? o.name : v); }
   if (f.type === "choice") { const o = f.opts.find(o => String(o[0]) === String(v)); return o ? o[lang === "en" ? 2 : 1] : v; }
@@ -212,6 +216,45 @@ function pkInit(id, o) {
 }
 document.addEventListener("mousedown", e => $$(".pl").forEach(p => { if (!p.parentElement.contains(e.target)) p.hidden = true; }));
 
+/* ───────── הרשאות אנטי-ניוק למשתמשים ───────── */
+const UP = {};
+const UPERMS = [
+  ["member_roles", "נתינה/הסרה של רולים למשתמשים", "Give/remove member roles"],
+  ["role_create", "יצירת רולים", "Create roles"],
+  ["role_delete", "מחיקת רולים", "Delete roles"],
+  ["role_perms", "הרשאות מסוכנות לרול", "Dangerous role permissions"],
+  ["channel_create", "יצירת חדרים", "Create channels"],
+  ["channel_delete", "מחיקת חדרים", "Delete channels"],
+  ["ban", "באן", "Ban"], ["kick", "קיק", "Kick"],
+  ["webhook", "וובהוקים", "Webhooks"],
+  ["guild_update", "שם/תמונת שרת", "Server name/icon"],
+  ["bot_add", "הוספת בוטים", "Add bots"],
+  ["templates", "טמפלייטים", "Templates"],
+  ["all", "הכול (פטור מלא)", "Everything (full exemption)"],
+];
+function upInit(id, val) {
+  const st = UP[id] = {map: JSON.parse(JSON.stringify(val || {})), names: {}};
+  (G.exempt_users || []).forEach(u => st.names[u.id] = u);
+  const box = $("#" + id), q = $("#" + id + "_q"), pl = q && q.nextElementSibling; if (!box || !q) return;
+  const fire = () => { draw(); box.dispatchEvent(new Event("input", {bubbles: true})); };
+  const draw = () => {
+    const ids = Object.keys(st.map);
+    box.innerHTML = ids.length ? ids.map(u => { const n = st.names[u] || {name: u}, cur = new Set(st.map[u]);
+      return `<div class="upu" data-u="${esc(u)}"><div class="uph">${n.avatar ? `<img src="${esc(n.avatar)}" alt="">` : ""}<b>${esc(n.name)}</b><span class="muted">${esc(u)}</span><button type="button" class="ghost" data-rm="${esc(u)}">✕</button></div><div class="upp">${UPERMS.map(p => `<label class="upc${p[0] === "all" ? " all" : ""}"><input type="checkbox" data-p="${p[0]}"${cur.has(p[0]) ? " checked" : ""}>${esc(lang === "en" ? p[2] : p[1])}</label>`).join("")}</div></div>`; }).join("")
+      : `<div class="muted" style="padding:8px 0">${esc(lang === "en" ? "No users with permissions yet — everyone gets banned for protected actions." : "אין עדיין משתמשים עם הרשאות — כל מי שיעשה פעולה מוגנת יקבל באן.")}</div>`;
+  };
+  box.addEventListener("change", e => { const c = e.target.closest("input[data-p]"); if (!c) return; e.stopPropagation(); const u = c.closest(".upu").dataset.u, s2 = new Set(st.map[u] || []); c.checked ? s2.add(c.dataset.p) : s2.delete(c.dataset.p); st.map[u] = [...s2]; fire(); });
+  box.addEventListener("click", e => { const b = e.target.closest("[data-rm]"); if (!b) return; delete st.map[b.dataset.rm]; fire(); });
+  let tm = 0, seq = 0;
+  q.oninput = () => { clearTimeout(tm); const v = q.value.trim(); if (v.length < 2) { pl.hidden = true; return; } tm = setTimeout(async () => {
+    const my = ++seq, r = await tryApi(`/api/guilds/${gid}/members?q=${encodeURIComponent(v)}`); if (my !== seq) return;
+    const items = (r.ok && r.d.items) || [];
+    pl.innerHTML = items.length ? items.map(m => `<div class="opt" data-id="${esc(m.id)}">${m.avatar ? `<img src="${esc(m.avatar)}" alt="" style="width:22px;height:22px;border-radius:50%">` : ""}<span>${esc(m.name)}</span><span class="muted">${esc(m.tag)}${m.bot ? " · BOT" : ""}</span></div>`).join("") : `<div class="muted" style="padding:8px">${esc(t("nores"))}</div>`;
+    pl._items = items; pl.hidden = false; }, 250); };
+  pl.onmousedown = e => { e.preventDefault(); const o = e.target.closest(".opt"); if (!o) return; const m = (pl._items || []).find(x => x.id === o.dataset.id); if (m) st.names[m.id] = m; if (!st.map[o.dataset.id]) st.map[o.dataset.id] = []; pl.hidden = true; q.value = ""; fire(); };
+  draw();
+}
+
 /* ───────── שדות ───────── */
 function fieldHtml(def, f) {
   const id = fid(def, f), v = (VALS[def.id] || {})[f.k], lab = esc(fl(f));
@@ -227,6 +270,7 @@ function fieldHtml(def, f) {
     case "long": return W("", `<label for="${id}">${lab}</label><textarea id="${id}"${f.max ? ` maxlength="${f.max}"` : ""}>${esc(v)}</textarea>${hint()}`);
     case "color": return W("", `<label for="${id}">${lab}</label><input type="color" id="${id}" value="${esc(nv)}">${hint()}`);
     case "ids": case "lines": { const locked = f.own && !G.can_whitelist; return W("", `<label for="${id}">${lab}</label><textarea id="${id}"${locked ? " disabled" : ""}>${esc(nv.join("\n"))}</textarea>${locked ? `<div class="hint">${esc(t("ownerOnly"))}</div>` : hint()}`); }
+    case "uperms": { const locked = f.own && !G.can_whitelist; return W("up", `<label>${lab}</label>${locked ? `<div class="hint">${esc(lang === "en" ? "Only the server owner or whoever added the bot can manage user permissions" : "רק בעל השרת או מי שהכניס את הבוט יכולים לנהל הרשאות למשתמשים")}</div>` : `<div class="pk"><input id="${id}_q" autocomplete="off" placeholder="${esc(lang === "en" ? "Search a member by name or ID…" : "חפש משתמש לפי שם או ID…")}"><div class="pl" hidden></div></div><div class="upl" id="${id}"></div>${hint()}`}`); }
     case "links": return W("", `<label for="${id}">${lab}</label><textarea id="${id}">${esc(nv.map(l => l.label + "|" + l.url).join("\n"))}</textarea>${hint()}`);
     default: return W("", `<label>${lab}</label>${pkHtml(id)}${hint()}`);
   }
@@ -246,6 +290,7 @@ function readField(def, f) {
       return a.map(x => { const i = x.indexOf("|"), label = x.slice(0, i).trim(), url = x.slice(i + 1).trim(); if (i < 1 || !label || !/^https?:\/\/\S+$/i.test(url)) throw new Error(t("badLink") + ": " + x); return {label, url}; });
     }
     case "color": return el.value.toUpperCase();
+    case "uperms": return JSON.parse(JSON.stringify((UP[id] || {}).map || {}));
     case "channel": case "role": return [...PK[id].sel][0] || "";
     default: return [...PK[id].sel];
   }
@@ -269,6 +314,7 @@ function secHtml(def, pre = "") {
 }
 function bindSec(def) {
   const form = $("#sec_" + def.id); if (!form) return;
+  def.f.forEach(f => { if (f.type === "uperms" && !(f.own && !G.can_whitelist)) upInit(fid(def, f), (VALS[def.id] || {})[f.k] || {}); });
   def.f.forEach(f => { if (PICK.has(f.type)) pkInit(fid(def, f), {multi: f.type === "chs" || f.type === "rls", list: listFor(f), sel: f.type === "chs" || f.type === "rls" ? ((VALS[def.id] || {})[f.k] || []) : [(VALS[def.id] || {})[f.k] ?? ""].filter(x => x !== ""), pre: f.type === "channel" || f.type === "chs" ? "#" : "@"}); });
   const on = e => { const w = e.target.closest && e.target.closest(".fld"); if (w) w.dataset.t = 1; refresh(def); };
   form.addEventListener("input", on); form.addEventListener("change", on);
@@ -342,11 +388,11 @@ async function renderView() {
 
 /* ───────── סקירה: ציון אבטחה, המלצות, פריסטים ───────── */
 const PRESETS = {
-  calm: {antinuke: {nuke: true, botguard: true, templates: false, selfrole: false}, antiraid: {enabled: true, joins: 20, seconds: 30, action: "timeout", min_age_days: 0, raid_minutes: 5, raise_verification: false, lockdown: false},
+  calm: {antinuke: {nuke: true, botguard: true, templates: false, roles: false, role_create: false}, antiraid: {enabled: true, joins: 20, seconds: 30, action: "timeout", min_age_days: 0, raid_minutes: 5, raise_verification: false, lockdown: false},
     automod: {spam: true, invites: true, mentions: true, badwords: false, caps: false, emoji: false, duplicates: false, headers: false, spam_count: 8, spam_seconds: 5, mention_limit: 10, emoji_limit: 30, caps_percent: 90, duplicate_count: 5, strikes: 5, timeout_minutes: 5}},
-  balanced: {antinuke: {nuke: true, botguard: true, templates: true, selfrole: true}, antiraid: {enabled: true, joins: 10, seconds: 20, action: "kick", min_age_days: 3, raid_minutes: 10, raise_verification: true, lockdown: false},
+  balanced: {antinuke: {nuke: true, botguard: true, templates: true, roles: false, role_create: false}, antiraid: {enabled: true, joins: 10, seconds: 20, action: "kick", min_age_days: 3, raid_minutes: 10, raise_verification: true, lockdown: false},
     automod: {spam: true, invites: true, mentions: true, badwords: true, caps: true, emoji: true, duplicates: true, headers: false, spam_count: 5, spam_seconds: 5, mention_limit: 5, emoji_limit: 15, caps_percent: 70, duplicate_count: 3, strikes: 3, timeout_minutes: 10}},
-  strict: {antinuke: {nuke: true, botguard: true, templates: true, selfrole: true}, antiraid: {enabled: true, joins: 5, seconds: 15, action: "ban", min_age_days: 14, raid_minutes: 30, raise_verification: true, lockdown: true},
+  strict: {antinuke: {nuke: true, botguard: true, templates: true, roles: true, role_create: true}, antiraid: {enabled: true, joins: 5, seconds: 15, action: "ban", min_age_days: 14, raid_minutes: 30, raise_verification: true, lockdown: true},
     automod: {spam: true, invites: true, mentions: true, badwords: true, caps: true, emoji: true, duplicates: true, headers: true, spam_count: 4, spam_seconds: 4, mention_limit: 3, emoji_limit: 8, caps_percent: 55, duplicate_count: 2, strikes: 2, timeout_minutes: 60}}
 };
 function score() {
@@ -355,8 +401,7 @@ function score() {
     {w: 10, ok: !!g.log_channel, he: "הגדר חדר לוגים כדי לקבל התראות", en: "Set a log channel to receive alerts", go: "general"},
     {w: 20, ok: !!a.nuke, he: "הפעל הגנת ניוק", en: "Enable nuke protection", fix: ["antinuke", {nuke: true}]},
     {w: 10, ok: !!a.botguard, he: "הפעל חסימת בוטים לא מורשים", en: "Enable unauthorized-bot blocking", fix: ["antinuke", {botguard: true}]},
-    {w: 5, ok: !!a.selfrole, he: "הפעל הגנה מרול עצמי", en: "Enable self-role protection", fix: ["antinuke", {selfrole: true}]},
-    {w: 5, ok: !!a.templates, he: "הפעל מחיקת טמפלייטים", en: "Enable template deletion", fix: ["antinuke", {templates: true}]},
+    {w: 10, ok: !!a.templates, he: "הפעל מחיקת טמפלייטים", en: "Enable template deletion", fix: ["antinuke", {templates: true}]},
     {w: 15, ok: !!r.enabled, he: "הפעל אנטי-ריידים", en: "Enable anti-raid", fix: ["antiraid", {enabled: true}]},
     {w: 5, ok: (r.min_age_days || 0) > 0, he: "דרוש גיל חשבון מינימלי בריידים", en: "Require a minimum account age during raids", fix: ["antiraid", {min_age_days: 3}]},
     {w: 5, ok: !!m.spam, he: "הפעל אנטי-ספאם", en: "Enable anti-spam", fix: ["automod", {spam: true}]},
@@ -477,7 +522,7 @@ async function rPremium(c) {
 }
 
 /* ───────── כלים: אשף, ייצוא/ייבוא, העתקה, היסטוריה ───────── */
-const ID_TYPES = new Set(["channel", "chs", "role", "rls"]);
+const ID_TYPES = new Set(["channel", "chs", "role", "rls", "uperms"]);
 function settingsPayload(src, {noIds}) {
   const out = {};
   for (const def of SECS) {
