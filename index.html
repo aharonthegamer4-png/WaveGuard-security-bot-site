@@ -107,7 +107,7 @@ code{background:var(--g2);border:1px solid var(--line);border-radius:8px;padding
 .step b{display:block}
 .step span{color:var(--muted);font-size:14.5px}
 .step span a{color:var(--accent);font-weight:600}
-.premium{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.premium{display:grid;grid-template-columns:1fr 1fr;gap:18px}.premium.solo{grid-template-columns:minmax(0,560px);justify-content:center}
 .plan{background:linear-gradient(160deg,#7c3aed26,var(--glass) 62%);border:1px solid var(--accent);border-radius:18px;padding:28px;box-shadow:0 0 0 1px #a78bfa33,0 30px 80px -36px #7c3aedcc}
 .plan .price{font-size:44px;font-weight:800;line-height:1.1;margin:10px 0 2px;font-family:Rajdhani,sans-serif}
 .plan .price small{font-size:16px;font-weight:500;color:var(--muted)}
@@ -153,9 +153,9 @@ footer a{color:var(--accent)}
 
 <div class="wrap" id="top">
  <header class="hero">
- <a class="announce" href="#premium"><b>NEW</b><span data-i="annText">מערכת לוגים חדשה — 8 קטגוריות פרימיום, חינם בהשקה. לחצו לפרטים.</span><span class="arr">‹</span></a><br>
+ <a class="announce" href="#premium"><b>NEW</b><span data-i="annText">מערכת לוגים חדשה: 8 קטגוריות פרימיום, חינם בתקופת ההשקה. לחצו לפרטים.</span><span class="arr">‹</span></a><br>
  <span class="badge" data-i="badge">הגנה מלאה לשרת הדיסקורד שלך</span>
- <h1><span data-i="h1a">הגנה שלא נשברת</span><br><span style="background:none;-webkit-text-fill-color:currentColor;color:var(--text)" data-i="h1b">גם מול ניוק וריידים</span></h1>
+ <h1><span data-i="h1a">בוט אבטחה לדיסקורד</span><br><span style="background:none;-webkit-text-fill-color:currentColor;color:var(--text)" data-i="h1b">נגד ניוקים, ריידים וספאם</span></h1>
  <p data-i="heroP">אנטי-ניוק עם שחזור אוטומטי, שער כניסה, הסגר, אוטומוד מתקדם, אימות, וולקם מעוצב ומודרציה עם תיקים. הכל בפקודות סלאש ובעברית.</p>
  <div class="cta">
  <a class="btn main" href="#" data-invite data-i="ctaAdd">הוסף את הבוט לשרת שלך</a>
@@ -173,7 +173,7 @@ footer a{color:var(--accent)}
  </header>
 
  <section id="features">
- <h2 data-i="fTitle">מה הבוט עושה</h2><p class="sub" data-i="fSub">כל מה ששרת צריך כדי להישאר בטוח, במקום אחד.</p>
+ <h2 data-i="fTitle">מה הבוט עושה</h2><p class="sub" data-i="fSub">אנטי-ניוק, אנטי-ריידים, אוטומוד, אימות, טיקטים ועוד.</p>
  <div class="grid">
  <div class="card glass"><h3 data-i="f1t">אנטי-ניוק</h3><p data-i="f1p">מזהה מחיקות ויצירות המוניות, חוסם את התוקף ומשחזר חדרים ורולים אוטומטית. כולל חסימת בוטים לא מורשים ומחיקת טמפלייטים.</p></div>
  <div class="card glass"><h3 data-i="f2t">אנטי-ריידים</h3><p data-i="f2p">מזהה הצפת כניסות, מעלה זמנית את רמת האימות ויכול לנעול את השרת עד שהסכנה חולפת.</p></div>
@@ -209,21 +209,14 @@ footer a{color:var(--accent)}
  </section>
 
  <section id="premium">
- <h2 data-i="pTitle">פרימיום</h2><p class="sub" data-i="pSub">כרגע כל פיצ׳רי הפרימיום, כולל הטיקטים, פתוחים לכולם בחינם. רוצים לתמוך בבוט? תשלום חד-פעמי מהיר ומאובטח.</p>
- <div class="premium">
+ <h2 data-i="pTitle">פרימיום</h2><p class="sub" data-i="pSubFree">כרגע כל פיצ׳רי הפרימיום, כולל הטיקטים, פתוחים לכל השרתים בחינם. לא צריך לקנות כלום.</p>
+ <div class="premium solo">
  <div class="plan">
  <b data-i="pPlan">מנוי פרימיום</b>
- <div class="price"><span data-i="pPrice">כ-30 ₪</span> <small data-i="pMonth">/ חודש</small></div>
+ <div class="price"><span data-i="pFree">חינם כרגע</span></div>
  <ul><li data-i="pl1">מערכת טיקטים: פאנל, נושאים, רולי צוות וטרנסקריפט שנשמר בחדר הלוגים</li><li data-i="pl2">חסימות עם תפוגה וסגירה אוטומטית של טיקטים לא פעילים</li><li data-i="pl3">מחולל משאב לוגים לשרת FiveM, ישירות מהפאנל באתר</li><li data-i="pl4">כל פיצ&#x27;ר פרימיום שייוסף בעתיד</li></ul>
- <button class="btn main" type="button" id="paddleBuy" style="width:100%;cursor:pointer">תשלום חד-פעמי ₪30</button>
- <p class="note" data-i="pNote">תשלום חד-פעמי מאובטח ישירות באתר — אשראי, PayPal או Google Pay, לפי מה שזמין. אנחנו לא רואים ולא שומרים את פרטי התשלום שלך.</p>
- <p id="paddleMsg" class="note" style="min-height:18px"></p>
- </div>
- <div class="steps">
- <div class="step glass"><div><b data-i="ps1t">לוחצים על הכפתור</b><span data-i="ps1p">לוחצים על כפתור התשלום, ומזינים את ה-Guild ID וה-Discord ID שלכם.</span></div></div>
- <div class="step glass"><div><b data-i="ps2t">משלמים בביטחון</b><span data-i="ps2p">חלון תשלום מאובטח נפתח על האתר עצמו — אשראי, PayPal או Google Pay. פרטי התשלום לא עוברים דרך השרת שלנו בכלל.</span></div></div>
- <div class="step glass"><div><b data-i="ps3t">מצטרפים לשרת התמיכה</b><span data-h="ps3p">כדאי להיות חבר בשרת שלנו לעדכונים ותמיכה. <a href="#" data-support>הצטרפות לשרת</a></span></div></div>
- <div class="step glass"><div><b data-i="ps4t">הפרימיום נפתח אוטומטית</b><span data-i="ps4p">מיד אחרי התשלום הבוט שולח לכם DM אישור, והפרימיום נפתח לשרת אוטומטית.</span></div></div>
+ <a class="btn main" href="#" data-invite data-i="ctaAdd" style="width:100%;text-align:center">הוסף את הבוט לשרת שלך</a>
+ <p class="note" data-i="pFreeNote">הפרימיום נפתח לבד לכל שרת שהבוט נמצא בו. אם זה ישתנה, נודיע מראש בשרת התמיכה.</p>
  </div>
  </div>
  </section>
@@ -262,8 +255,6 @@ footer a{color:var(--accent)}
  <p class="cgnote" data-i="cgNote">לחיצה על הכפתור מהווה הסכמה לתנאי השימוש ולמדיניות הפרטיות.</p>
  </div>
 </div>
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
-<script src="paddle-checkout.js" defer></script>
 <script src="app.js" defer></script>
 <script src="stats.js" defer></script>
 </body>

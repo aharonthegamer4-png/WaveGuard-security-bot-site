@@ -433,14 +433,26 @@ async function applyPreset(k) {
 }
 
 /* ───────── הגדרות (כל הקטגוריות + חיפוש) ───────── */
+let CFG_TAB = "antinuke";
 function rSettings(c) {
-  c.innerHTML = `<div class="glass searchbar"><input id="sq" type="search" placeholder="${esc(t("searchSettings"))}"><div class="jump">${SECS.map(s => `<a data-j="${s.id}">${s.i} ${esc(s.l[lang])}</a>`).join("")}</div></div><div id="secs"></div>`;
+  if (!SECS.some(s => s.id === CFG_TAB)) CFG_TAB = SECS[0].id;
+  c.innerHTML = `<div class="glass searchbar"><input id="sq" type="search" placeholder="${esc(t("searchSettings"))}"><div class="jump tabs" role="tablist">${SECS.map(s => `<a role="tab" tabindex="0" data-j="${s.id}">${s.i} ${esc(s.l[lang])}</a>`).join("")}</div></div><div id="secs"></div>`;
   SECS.forEach(def => { VALS[def.id] = def.vals(); $("#secs").insertAdjacentHTML("beforeend", secHtml(def)); bindSec(def); });
-  $$(".jump a", c).forEach(a => a.onclick = () => $("#sec_" + a.dataset.j).scrollIntoView({behavior: "smooth"}));
-  $("#sq").oninput = () => {
+  const show = () => {
     const q = $("#sq").value.trim().toLowerCase();
-    SECS.forEach(def => { const f = $("#sec_" + def.id); let any = false; $$(".fld", f).forEach(w => { const m = !q || w.dataset.sk.includes(q) || def.l[lang].toLowerCase().includes(q); w.classList.toggle("hide", !m); any = any || m; }); f.style.display = any ? "" : "none"; });
+    $$(".jump a", c).forEach(a => { const on = !q && a.dataset.j === CFG_TAB; a.classList.toggle("on", on); a.setAttribute("aria-selected", on); a.classList.toggle("chg", DIRTY.has(a.dataset.j)); });
+    SECS.forEach(def => {
+      const f = $("#sec_" + def.id); let any = false;
+      $$(".fld", f).forEach(w => { const m = !q || w.dataset.sk.includes(q) || def.l[lang].toLowerCase().includes(q); w.classList.toggle("hide", !m); any = any || m; });
+      f.style.display = (q ? any : def.id === CFG_TAB) ? "" : "none";
+    });
   };
+  const pick = id => { CFG_TAB = id; $("#sq").value = ""; show(); };
+  $$(".jump a", c).forEach(a => { a.onclick = () => pick(a.dataset.j); a.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(a.dataset.j); } }; });
+  $("#secs").addEventListener("input", () => setTimeout(show, 0));
+  $("#secs").addEventListener("click", () => setTimeout(show, 800));
+  $("#sq").oninput = show;
+  show();
 }
 
 /* ───────── פעילות חיה ───────── */
@@ -505,7 +517,7 @@ async function rPremium(c) {
   if (!prem) return c.innerHTML = soon([`GET /api/guilds/${gid}/premium`]);
   const up = prem.upgrade_url || PATREON_URL, upBtn = up ? `<a class="btn pri" href="${esc(up)}" target="_blank" rel="noopener">💎 ${esc(t("upgrade"))}</a>` : "";
   if (!prem.active) { c.innerHTML = `<div class="glass pad lock"><div style="font-size:42px">🔒</div><h2>${esc(t("premOnly"))}</h2><p class="muted" style="margin-bottom:14px">${esc(t("premD"))}</p><ul class="muted" style="list-style:none;margin-bottom:16px"><li>🎫 ${esc(t("premF1"))}</li><li>📜 ${esc(t("premF2"))}</li><li>⭐ ${esc(t("premF3"))}</li></ul>${upBtn}</div>`; return; }
-  const status = `<div class="glass pad row" style="justify-content:space-between"><div><b>💎 ${esc(t("premActive"))}</b><div class="muted">${prem.until ? esc(t("premUntil")) + " " + fmt(prem.until) : esc(t("premNoEnd"))}${prem.source ? " · " + esc(prem.source) : ""}</div></div></div>`;
+  const status = `<div class="glass pad row" style="justify-content:space-between"><div><b>💎 ${esc(t("premActive"))}</b><div class="muted">${prem.free ? esc(t("premFree")) : (prem.until ? esc(t("premUntil")) + " " + fmt(prem.until) : esc(t("premNoEnd"))) + (prem.source ? " · " + esc(prem.source) : "")}</div></div></div>`;
   const tk = await tryApi(`/api/guilds/${gid}/tickets`);
   if (tk.unsupported) return c.innerHTML = status + soon([`GET/PUT /api/guilds/${gid}/tickets`, `POST /api/guilds/${gid}/tickets/publish`, `GET /api/guilds/${gid}/tickets/transcripts`]);
   if (!tk.ok) return c.innerHTML = status + errBox(tk.e);
@@ -719,7 +731,7 @@ const I18N = {
     applyPreset: "החל", confirmPreset: "להחיל את ההגדרה \"{p}\"? זה ידרוס הגדרות באנטי-ניוק, אנטי-ריידים ואוטומוד.", searchSettings: "🔎 חפש הגדרה (למשל: ריידים, ספאם, רקע)…",
     chartTitle: "פעילות לאורך זמן", joins: "כניסות", leaves: "יציאות", bans: "באנים", raids: "ריידים", noData: "אין נתונים.", user: "משתמש", release: "שחרר", unban: "בטל באן", events: "אירועים אחרונים",
     alertsD: "בחר מה תרצה לקבל כשמזוהה ריייד, ניסיון ניוק ועוד, בחדר בדיסקורד או ב-DM.",
-    upgrade: "שדרג לפרימיום", premOnly: "אזור פרימיום", premD: "ההגדרות כאן זמינות רק לשרתים עם מנוי פרימיום.", premF1: "מערכת טיקטים מלאה", premF2: "מחולל לוגים לשרת FiveM", premF3: "הגדרות מתקדמות לטיקטים", premActive: "פרימיום פעיל", premUntil: "בתוקף עד", premNoEnd: "ללא תאריך סיום",
+    upgrade: "שדרג לפרימיום", premOnly: "אזור פרימיום", premD: "ההגדרות כאן זמינות רק לשרתים עם מנוי פרימיום.", premF1: "מערכת טיקטים מלאה", premF2: "מחולל לוגים לשרת FiveM", premF3: "הגדרות מתקדמות לטיקטים", premActive: "פרימיום פעיל", premUntil: "בתוקף עד", premNoEnd: "ללא תאריך סיום", premFree: "כרגע חינם לכל השרתים — לא צריך לקנות כלום",
     tkOpened: "טיקטים שנפתחו", tkClosed: "טיקטים שנסגרו", tkAvg: "דירוג ממוצע", tkRated: "דורגו", tkPublish: "פרסום הפאנל", tkPublishD: "שולח או מעדכן את הודעת הפאנל בחדר שבחרת.", tkPublishBtn: "פרסם / עדכן פאנל", tkPublished: "הפאנל פורסם", tkTranscripts: "טרנסקריפטים", closedAt: "נסגר", view: "צפה",
     wizTitle: "אשף התקנה לשרת חדש", wizD: "5 שלבים קצרים: לוגים, רמת הגנה, שער כניסה ווולקם.", wizStart: "התחל", wz1: "חדר לוגים", wz1d: "לשם יגיעו כל ההתראות.", wz1l: "הפעל את כל סוגי הלוגים", wz2: "רמת הגנה", wz3: "שער כניסה", wz3d: "בודק חשבונות חשודים בכניסה.", wz3e: "הפעל שער כניסה", wz3a: "פעולה על חשבון חשוד", wz3n: "הסגר למי שאין לו תמונת פרופיל", wz4: "וולקם", wz4e: "הפעל הודעת וולקם", wz4c: "חדר הוולקם", wz5: "סיכום", wzApply: "החל הכול", wzDone: "ההתקנה הסתיימה", cancel: "ביטול", prev: "הקודם", next: "הבא",
     export: "ייצוא הגדרות", exportD: "מוריד קובץ JSON עם כל ההגדרות של השרת.", exportBtn: "הורד קובץ", import: "ייבוא הגדרות", noIds: "דלג על הגדרות שתלויות בשרת (חדרים ורולים)", importBtn: "ייבא", pickFile: "בחר קובץ", badFile: "קובץ לא תקין", confirmImport: "להחיל את ההגדרות על השרת הזה?", importRes: "תוצאות", copyFrom: "העתקת הגדרות משרת אחר", copyBtn: "העתק", noIdsHint: "חדרים ורולים לא מועתקים כי המזהים שונים בין שרתים.",
@@ -743,7 +755,7 @@ const I18N = {
     applyPreset: "Apply", confirmPreset: "Apply the \"{p}\" preset? It overwrites anti-nuke, anti-raid and automod settings.", searchSettings: "🔎 Search settings (e.g. raid, spam, background)…",
     chartTitle: "Activity over time", joins: "Joins", leaves: "Leaves", bans: "Bans", raids: "Raids", noData: "No data.", user: "User", release: "Release", unban: "Unban", events: "Recent events",
     alertsD: "Choose what you want to be notified about (raids, nuke attempts…) in a Discord channel or by DM.",
-    upgrade: "Upgrade to Premium", premOnly: "Premium area", premD: "These settings are available only to servers with a Premium subscription.", premF1: "Full ticket system", premF2: "FiveM log resource generator", premF3: "Advanced ticket settings", premActive: "Premium active", premUntil: "Valid until", premNoEnd: "No end date",
+    upgrade: "Upgrade to Premium", premOnly: "Premium area", premD: "These settings are available only to servers with a Premium subscription.", premF1: "Full ticket system", premF2: "FiveM log resource generator", premF3: "Advanced ticket settings", premActive: "Premium active", premUntil: "Valid until", premNoEnd: "No end date", premFree: "Free for every server right now — nothing to buy",
     tkOpened: "Tickets opened", tkClosed: "Tickets closed", tkAvg: "Average rating", tkRated: "Rated", tkPublish: "Publish the panel", tkPublishD: "Sends or updates the panel message in the channel you chose.", tkPublishBtn: "Publish / update panel", tkPublished: "Panel published", tkTranscripts: "Transcripts", closedAt: "Closed", view: "View",
     wizTitle: "New-server setup wizard", wizD: "5 quick steps: logs, protection level, join gate and welcome.", wizStart: "Start", wz1: "Log channel", wz1d: "All alerts will be sent here.", wz1l: "Enable all log types", wz2: "Protection level", wz3: "Join gate", wz3d: "Checks suspicious accounts when they join.", wz3e: "Enable the join gate", wz3a: "Action on suspicious accounts", wz3n: "Quarantine users without an avatar", wz4: "Welcome", wz4e: "Enable the welcome message", wz4c: "Welcome channel", wz5: "Summary", wzApply: "Apply all", wzDone: "Setup finished", cancel: "Cancel", prev: "Previous", next: "Next",
     export: "Export settings", exportD: "Downloads a JSON file with all server settings.", exportBtn: "Download file", import: "Import settings", noIds: "Skip server-specific settings (channels and roles)", importBtn: "Import", pickFile: "Choose a file", badFile: "Invalid file", confirmImport: "Apply these settings to this server?", importRes: "Results", copyFrom: "Copy settings from another server", copyBtn: "Copy", noIdsHint: "Channels and roles are not copied because IDs differ between servers.",
