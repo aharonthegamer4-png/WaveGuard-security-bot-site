@@ -6,7 +6,7 @@
   let lang = store.get("sg_lang") || ((navigator.language || "en").toLowerCase().startsWith("he") ? "he" : "en");
   if (lang !== "he") lang = "en";
   let theme = store.get("sg_theme") || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-  const SUPPORT = "https://discord.gg/YjHkkwr5dD";
+  const SUPPORT = "https://discord.gg/PtCnHapCuH";
   function apply() {
     d.lang = lang; d.dir = lang === "he" ? "rtl" : "ltr"; d.dataset.theme = theme;
     const t = document.querySelector("[data-l=" + lang + "] h1");

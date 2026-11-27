@@ -4,7 +4,7 @@ const CLIENT_ID = "1557899239814733864";
 // הרשאות: 8 = Administrator. להרשאות מצומצמות אפשר לחשב ב-OAuth2  URL Generator
 const PERMISSIONS = "8";
 const INVITE = "https://discord.com/oauth2/authorize?client_id=" + CLIENT_ID + "&permissions=" + PERMISSIONS + "&scope=bot%20applications.commands";
-const SUPPORT_INVITE = "https://discord.gg/YjHkkwr5dD";
+const SUPPORT_INVITE = "https://discord.gg/PtCnHapCuH";
 const PANEL_URL = "https://waveguard-acsecurity-bot-site.vercel.app/panel/";   // פאנל הלקוחות
 
 const I18N = {
